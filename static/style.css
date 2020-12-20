@@ -59,6 +59,22 @@ body {
   text-align: center;
 }
 
+.foreground .text-container {
+  margin-top: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 60%;
+  font-size: 22px;
+}
+
+.foreground .separator {
+  margin-top: 48px;
+  margin-bottom: 48px;
+  width: 60%;
+  color: #fe8627;
+}
+
 #title {
   margin-top: 100px;
   margin-left: auto;
@@ -70,3 +86,4 @@ body {
 #title img{
   width:100%;
 }
+
