@@ -41,7 +41,7 @@ body {
   width: 140%; /* larger than 100% to compensate for translateZ*/
   height: 2100px;
   transform: translateZ(-3px);
-  background-image: url("/static/img/bg.png");
+  background-image: url("/static/img/bg_blur.png");
   background-repeat: repeat;
 }
 
