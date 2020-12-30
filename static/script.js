@@ -20,6 +20,9 @@ function normalized(v) {
     let n = norm(v);
     return vec2(v.x/n, v.y/n);
 }
+function logn(val) {
+  return Math.log(val) / Math.log(scaling_factor);
+}
 
 class Bug {
     static bugs = [];
@@ -31,13 +34,12 @@ class Bug {
         this.img_ref = image_ref[this.type];
         this.angle = random(0, 2*Math.PI*1000)/1000;
 
-        this.speed = random(10, 20)/10.0;
+        this.speed = random(5, 10)/10.0;
         this.velocity = vec2(this.speed*Math.cos(this.angle), this.speed*Math.sin(this.angle));
-        this.scale = 1;
 
         this.vision = 200;
         this.separation = 0.001;
-        this.alignment = 0.1;
+        this.alignment = 0.01;
         this.cohesion = 0.0005;
 
         Bug.bugs.push(this);
@@ -48,7 +50,7 @@ class Bug {
         //var x = this.x + this.scale/2;
         //var y = this.y+(this.scale/w_to_h_ratio)/2;
 
-        canvas.setTransform(this.scale, 0, 0, this.scale, this.x, this.y);
+        canvas.setTransform(scale, 0, 0, scale, this.x, this.y);
         canvas.rotate(this.angle);
         canvas.drawImage(this.img_ref, -this.img_ref.width / 2, -this.img_ref.height / 2);
 
@@ -65,7 +67,7 @@ class Bug {
             if (this == bug) {
                 return;
             }
-            if (dist(this, bug) < this.vision) {
+            if (dist(this, bug) < this.vision*scale) {
                 pos_sum.x += bug.x;
                 pos_sum.y += bug.y;
                 dis_sum.x += bug.x-this.x;
@@ -88,11 +90,11 @@ class Bug {
         this.velocity.y += steer.y;
 
         this.velocity = normalized(this.velocity);
-        this.velocity.x *= this.speed;
-        this.velocity.y *= this.speed;
+        this.velocity.x *= this.speed * scale;
+        this.velocity.y *= this.speed * scale;
 
         this.angle = Math.atan2(this.velocity.y, this.velocity.x)
-        
+
         this.x = (this.x+this.velocity.x+border_spawn_margin)%(width+border_spawn_margin)-border_spawn_margin;
         this.y = (this.y+this.velocity.y+border_spawn_margin)%(height+border_spawn_margin)-border_spawn_margin;
 
@@ -118,6 +120,10 @@ let bug3 = new Image();
 let bug4 = new Image();
 
 let border_spawn_margin = 200;
+let bug_density = 4;
+let scale;
+let scaling_factor = 4
+let bug_count;
 
 let image_ref = [bug0, bug1, bug2, bug3, bug4];
 
@@ -133,7 +139,8 @@ window.onload = function() {
     canvas = canvas_element.getContext("2d");
     canvas_element.width = width;
     canvas_element.height = height;
-    let bug_count = 200;
+    scale = logn((width*height / 200**2)/(50/scaling_factor));
+    bug_count = (width*height / (200*scale)**2) * bug_density;
     for (let a=0; a<bug_count; a++)
         new Bug(width, height);
     draw();
@@ -155,4 +162,20 @@ window.onresize = function() {
     canvas_element.style.width = canvas_element.scrollWidth;
     canvas_element.height = canvas_element.scrollHeight;
     canvas_element.style.height = canvas_element.scrollHeight;
-}
+    scale = logn((width*height / 200**2)/(50/scaling_factor));
+    /*
+    let delta_bug_count = (width*height / 200**2) * (bug_density/scale) - bug_count;
+    if (delta_bug_count < 0) {
+        Bug.bugs.splice(delta_bug_count, Math.abs(delta_bug_count));
+    } else if (delta_bug_count > 0) {
+        for (let a=0; a<delta_bug_count; a++)
+            new Bug(width, height);
+    }
+    bug_count += delta_bug_count;
+
+     */
+    bug_count = (width*height / (200*scale)**2) * bug_density;
+    Bug.bugs = [];
+    for (let a=0; a<bug_count; a++)
+        new Bug(width, height);
+};
