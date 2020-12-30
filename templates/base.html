@@ -1,0 +1,49 @@
+{% load static %}
+{% load blog_utils %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>NeŘád - Symposion 2020 | Gymnázium Jana Keplera</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+        <script src="{% static 'js/script.js' %}"></script>
+
+        <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif" type="text/css" rel="stylesheet">
+    </head>
+    <body ontouchstart="">
+        <div class="wrapper">
+          <div class="container">
+            <div class="background"><canvas id="bugs"></canvas></div>
+            <div class="foreground">
+                <header>
+                    <img src="{% static 'img/title.png' %}">
+                    Symposion GJK 2020/21
+                    <nav>
+                        <ul>
+                            <li><a href="{% url 'blog.info' %}">Info</a></li>
+                            <li><a href="{% url 'blog.list' %}">Blog</a></li>
+                            <li><a>Podcasty</a></li>
+                        </ul>
+                    </nav>
+                    {% block header %}
+                    {% endblock %}
+                </header>
+                <main>
+                    {% block main %}
+                    {% endblock %}
+                </main>
+                <footer>
+                    {% block footer %}
+                    {% endblock %}
+                </footer>
+            </div>
+          </div>
+        </div>
+    </body>
+</html>

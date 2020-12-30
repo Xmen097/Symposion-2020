@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block main %}
+	<article class="main text-container" id="{{ object.slug }}">
+		<h1><a href={{ object.get_absolute_url }}>{{ object.title }}</a></h1>
+		<div class="info">
+			{% if object.published %}<span class="published">Publikováno {{ object.published }}. {% if object.modified %}Upraveno {{ object.modified }}.{% endif %}</span>{% endif %}
+		
+			<span class="author">Autor: {{ post.author }}</span>
+		</div>
+
+		{{ object.html|safe }}
+
+		<a href="#" class="upbtn">Nahoru &#8617;</a>
+	</article>
+{% endblock %}

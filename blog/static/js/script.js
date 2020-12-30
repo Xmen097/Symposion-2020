@@ -31,14 +31,15 @@ class Bug {
         this.img_ref = image_ref[this.type];
         this.angle = random(0, 2*Math.PI*1000)/1000;
 
-        this.speed = random(10, 20)/10.0;
+        this.speed = random(8, 14)/10.0;
         this.velocity = vec2(this.speed*Math.cos(this.angle), this.speed*Math.sin(this.angle));
         this.scale = 1;
 
         this.vision = 200;
         this.separation = 0.001;
-        this.alignment = 0.1;
+        this.alignment = 0.02;
         this.cohesion = 0.0005;
+        this.fear = 0.01;
 
         Bug.bugs.push(this);
     }
@@ -84,6 +85,11 @@ class Bug {
             steer.y += (pos_sum.x/num - this.x) * this.cohesion;
         }
 
+        /*if (mouse.x != null && mouse.y != null && dist(mouse, this) < this.vision) {
+            steer.x -= (mouse.x-this.x) * this.fear;
+            steer.y -= (mouse.y-this.y) * this.fear;
+        }*/
+
         this.velocity.x += steer.x;
         this.velocity.y += steer.y;
 
@@ -111,6 +117,8 @@ let canvas;
 let width;
 let height;
 
+let mouse = vec2(null, null);
+
 let bug0 = new Image();
 let bug1 = new Image();
 let bug2 = new Image();
@@ -137,6 +145,12 @@ window.onload = function() {
     for (let a=0; a<bug_count; a++)
         new Bug(width, height);
     draw();
+
+    canvas_element.addEventListener('mousemove', function(evt) {
+        let rect = canvas_element.getBoundingClientRect();
+        mouse = vec2(evt.clientX - rect.left, evt.clientY - rect.top);
+        console.log(mouse);
+    });
 };
 
 function draw() {
