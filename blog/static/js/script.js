@@ -20,36 +20,34 @@ function normalized(v) {
     let n = norm(v);
     return vec2(v.x/n, v.y/n);
 }
+function get_scale(val) {
+  /*return Math.log(val) / Math.log(scaling_factor);*/
+    return Math.pow(val, 1/scaling_factor);
+}
 
 class Bug {
     static bugs = [];
 
-    constructor(width, height) {
-        this.x = random(-border_spawn_margin, width+border_spawn_margin);
-        this.y = random(-border_spawn_margin, height+border_spawn_margin);
+    constructor() {
+        this.x = random(0, width);
+        this.y = random(0, chaos_height);
         this.type = random(0, 4);
         this.img_ref = image_ref[this.type];
         this.angle = random(0, 2*Math.PI*1000)/1000;
 
-        this.speed = random(8, 14)/10.0;
+        this.speed = random(5, 10)/10.0;
         this.velocity = vec2(this.speed*Math.cos(this.angle), this.speed*Math.sin(this.angle));
-        this.scale = 1;
 
         this.vision = 200;
         this.separation = 0.001;
-        this.alignment = 0.02;
+        this.alignment = 0.015;
         this.cohesion = 0.0005;
         this.fear = 0.01;
 
         Bug.bugs.push(this);
     }
     draw(canvas) {
-        let w_to_h_ratio = this.img_ref.width / this.img_ref.height;
-
-        //var x = this.x + this.scale/2;
-        //var y = this.y+(this.scale/w_to_h_ratio)/2;
-
-        canvas.setTransform(this.scale, 0, 0, this.scale, this.x, this.y);
+        canvas.setTransform(scale, 0, 0, scale, this.x, this.y);
         canvas.rotate(this.angle);
         canvas.drawImage(this.img_ref, -this.img_ref.width / 2, -this.img_ref.height / 2);
 
@@ -66,7 +64,7 @@ class Bug {
             if (this == bug) {
                 return;
             }
-            if (dist(this, bug) < this.vision) {
+            if (dist(this, bug) < this.vision*scale) {
                 pos_sum.x += bug.x;
                 pos_sum.y += bug.y;
                 dis_sum.x += bug.x-this.x;
@@ -84,30 +82,26 @@ class Bug {
             steer.x += (pos_sum.x/num - this.x) * this.cohesion;
             steer.y += (pos_sum.x/num - this.x) * this.cohesion;
         }
+        let border_velocity = vec2();
+        border_velocity.x = Math.log(Math.max(border_repulsion_margin-this.x, this.x-(width-border_repulsion_margin), 0)/200+1)**4 * (border_repulsion_margin-this.x > 0 ? 1 : -1);
+        border_velocity.y = Math.log(Math.max(border_repulsion_margin-this.y, this.y-(chaos_height-border_repulsion_margin), 0)/200+1)**4 * (border_repulsion_margin-this.y > 0 ? 1 : -1);
 
         /*if (mouse.x != null && mouse.y != null && dist(mouse, this) < this.vision) {
             steer.x -= (mouse.x-this.x) * this.fear;
             steer.y -= (mouse.y-this.y) * this.fear;
         }*/
 
-        this.velocity.x += steer.x;
-        this.velocity.y += steer.y;
-
-        this.velocity = normalized(this.velocity);
-        this.velocity.x *= this.speed;
-        this.velocity.y *= this.speed;
-
-        this.angle = Math.atan2(this.velocity.y, this.velocity.x)
+        this.velocity.x += steer.x+border_velocity.x;
+        this.velocity.y += steer.y+border_velocity.y;
         
-        this.x = (this.x+this.velocity.x+border_spawn_margin)%(width+border_spawn_margin)-border_spawn_margin;
-        this.y = (this.y+this.velocity.y+border_spawn_margin)%(height+border_spawn_margin)-border_spawn_margin;
+        this.velocity = normalized(this.velocity);
+        this.velocity.x *= this.speed * scale;
+        this.velocity.y *= this.speed * scale;
 
-        if (this.x+border_spawn_margin < 0) {
-            this.x = width-10;
-        }
-        if (this.y+border_spawn_margin < 0) {
-            this.y = height-10;
-        }
+        this.angle = Math.atan2(this.velocity.y, this.velocity.x);
+
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
     }
 }
 
@@ -115,6 +109,7 @@ let canvas_element;
 let canvas;
 
 let width;
+let chaos_height;
 let height;
 
 let mouse = vec2(null, null);
@@ -125,7 +120,12 @@ let bug2 = new Image();
 let bug3 = new Image();
 let bug4 = new Image();
 
-let border_spawn_margin = 200;
+let border_repulsion_margin = 200;
+let bug_density = 5;
+let scale;
+let scaling_factor = 3;
+let lin_scaling_factor = 25;
+let bug_count;
 
 let image_ref = [bug0, bug1, bug2, bug3, bug4];
 
@@ -137,13 +137,15 @@ window.onload = function() {
     bug4.src = 'static/img/bg/4.png';
     canvas_element = document.getElementById('bugs');
     width = canvas_element.scrollWidth;
+    chaos_height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)*1.40;
     height = canvas_element.scrollHeight;
     canvas = canvas_element.getContext("2d");
     canvas_element.width = width;
     canvas_element.height = height;
-    let bug_count = 200;
+    scale = get_scale((width*chaos_height / 200**2)/(lin_scaling_factor));
+    bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
     for (let a=0; a<bug_count; a++)
-        new Bug(width, height);
+        new Bug();
     draw();
 
     canvas_element.addEventListener('mousemove', function(evt) {
@@ -164,9 +166,15 @@ function draw() {
 
 window.onresize = function() {
     width = canvas_element.scrollWidth;
+    chaos_height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)*1.40;
     height = canvas_element.scrollHeight;
-    canvas_element.width = canvas_element.scrollWidth;
-    canvas_element.style.width = canvas_element.scrollWidth;
-    canvas_element.height = canvas_element.scrollHeight;
-    canvas_element.style.height = canvas_element.scrollHeight;
-}
+    canvas_element.width = width;
+    canvas_element.style.width = width;
+    canvas_element.height = height;
+    canvas_element.style.height = height;
+    scale = get_scale((width*chaos_height / 200**2)/(lin_scaling_factor));
+    bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
+    Bug.bugs = [];
+    for (let a=0; a<bug_count; a++)
+        new Bug();
+};

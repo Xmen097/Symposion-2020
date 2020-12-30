@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Courier New";
-  url(static/Courier New Regular.tff)format('truetype');
+  /*url(../Courier New Regular.ttf) format('truetype');*/
 }
 
 body {
@@ -28,23 +28,23 @@ body {
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  /*perspective: 8px;
-  perspective-origin: 0;*/
+  perspective: 8px;
+  perspective-origin: 0;
   display: flex;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
 }
 
-/*
+
 .background {
   position: absolute;
-  top: -20%;  /* compensate for translateZ/
+  top: -20%;  /* compensate for translateZ*/
   left: 0;
-  width: 140%; /* larger than 100% to compensate for translateZ/
-  height: max(1700px, 140vh);
+  width: 140%; /* larger than 100% to compensate for translateZ*/
+  height: max(5000px, 140vh);
   transform: translateZ(-3px);
-}*/
-
+}
+/*
 .background {
   position: fixed;
   top: -5vh;
@@ -52,7 +52,7 @@ body {
   width: 110vw;
   height: 110vh;
 }
-
+*/
 .background #bugs {
   width: 100%;
   height: 100%;
@@ -103,7 +103,7 @@ h1 a {
 }
 
 header {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   width: 640px;
