@@ -35,7 +35,7 @@ class Bug {
         this.img_ref = image_ref[this.type];
         this.angle = random(0, 2*Math.PI*1000)/1000;
 
-        this.speed = random(7, 12)/10.0;
+        this.speed = random(7, 11)/10.0;
         this.velocity = vec2(this.speed*Math.cos(this.angle), this.speed*Math.sin(this.angle));
 
         this.vision = 200;
