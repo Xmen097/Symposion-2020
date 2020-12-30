@@ -41,7 +41,7 @@ body {
   top: -20%;  /* compensate for translateZ*/
   left: 0;
   width: 140%; /* larger than 100% to compensate for translateZ*/
-  height: max(1700px, 140vh);
+  height: max(5000px, 140vh);
   transform: translateZ(-3px);
 }
 /*
@@ -96,7 +96,7 @@ body {
 }
 
 #title {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   width: 640px;
