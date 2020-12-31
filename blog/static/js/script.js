@@ -83,13 +83,13 @@ class Bug {
             steer.y += (pos_sum.x/num - this.x) * this.cohesion;
         }
         let border_velocity = vec2();
-        border_velocity.x = Math.log(Math.max(border_repulsion_margin-this.x, this.x-(width-border_repulsion_margin), 0)/200+1)**4 * (border_repulsion_margin-this.x > 0 ? 1 : -1);
-        border_velocity.y = Math.log(Math.max(border_repulsion_margin-this.y, this.y-(chaos_height-border_repulsion_margin), 0)/200+1)**4 * (border_repulsion_margin-this.y > 0 ? 1 : -1);
+        border_velocity.x = Math.log(Math.max(border_repulsion_margin-this.x, this.x-(width-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.x > 0 ? 1 : -1);
+        border_velocity.y = Math.log(Math.max(border_repulsion_margin-this.y, this.y-(chaos_height-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.y > 0 ? 1 : -1);
 
-        /*if (mouse.x != null && mouse.y != null && dist(mouse, this) < this.vision) {
+        if (mouse.x != null && mouse.y != null && dist(mouse, this) < this.vision) {
             steer.x -= (mouse.x-this.x) * this.fear;
             steer.y -= (mouse.y-this.y) * this.fear;
-        }*/
+        }
 
         this.velocity.x += steer.x+border_velocity.x;
         this.velocity.y += steer.y+border_velocity.y;
@@ -120,7 +120,7 @@ let bug2 = new Image();
 let bug3 = new Image();
 let bug4 = new Image();
 
-let border_repulsion_margin = 200;
+let border_repulsion_margin;
 let bug_density = 5;
 let scale;
 let scaling_factor = 3;
@@ -137,7 +137,8 @@ window.onload = function() {
     bug4.src = static_url + '/img/bg/4.png';
     canvas_element = document.getElementById('bugs');
     width = canvas_element.scrollWidth;
-    chaos_height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)*1.40;
+    chaos_height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+    border_repulsion_margin = chaos_height/5.0;
     height = canvas_element.scrollHeight;
     canvas = canvas_element.getContext("2d");
     canvas_element.width = width;
@@ -148,7 +149,7 @@ window.onload = function() {
         new Bug();
     draw();
 
-    canvas_element.addEventListener('mousemove', function(evt) {
+    window.addEventListener('mousemove', function(evt) {
         let rect = canvas_element.getBoundingClientRect();
         mouse = vec2(evt.clientX - rect.left, evt.clientY - rect.top);
         console.log(mouse);
@@ -166,8 +167,9 @@ function draw() {
 
 window.onresize = function() {
     width = canvas_element.scrollWidth;
-    chaos_height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)*1.40;
+    chaos_height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
     height = canvas_element.scrollHeight;
+    border_repulsion_margin = chaos_height/5.0;
     canvas_element.width = width;
     canvas_element.style.width = width;
     canvas_element.height = height;
