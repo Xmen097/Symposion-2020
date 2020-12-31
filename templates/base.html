@@ -21,27 +21,27 @@
           <div class="container">
             <div class="background"><canvas id="bugs"></canvas></div>
             <div class="foreground">
-                <header>
-                    <img src="{% static 'img/title.png' %}">
-                    Symposion GJK 2020/21
-                    <nav>
-                        <ul>
-                            <li><a href="{% url 'blog.info' %}">Info</a></li>
-                            <li><a href="{% url 'blog.list' %}">Blog</a></li>
-                            <li><a>Podcasty</a></li>
-                        </ul>
-                    </nav>
-                    {% block header %}
-                    {% endblock %}
-                </header>
-                <main>
+                <div id="intro_page">
+                    <div id="title">
+                        <img src="{% static 'img/title.png' %}" id="title">
+                        Symposion GJK 2020/21
+                    </div>
+                    <!--<img src="{% static 'img/mura.png' %}" id="mura">-->
+                    <div class="text-container">
+                        <p>(ne)řád jako narušení struktury, výchylka, výjimka, chyba, mutace komplikující situaci</p>
+                        <p>(ne)řád jako svoboda, volnost, odklon od norem a konvencí.</p>
+                        <p>(ne)řád jako záškodník, parazit, narušitel a vetřelec.</p>
+                        <p>(ne)řád jako rozmanitost a pestrost, která obohacuje.</p>
+                        <p>(ne)řád jako vzdor a rebelie odmítající pravidla.</p>
+                        <p>(ne)řád jako divokost, nespoutanost, bordel a chaos.</p>
+                    </div>
+                    <img src="{% static 'img/tlacitkoHARMONOGRAM.png' %}" id="harmonogram">
+                    <img src="{% static 'img/tlacitkoGJK.png' %}" id="GJK">
+                    <img src="{% static 'img/tlacitkoWEBOBSAH.png' %}" id="obsah">
+                    <img src="{% static 'img/tlacitkoKONTAKT.png' %}" id="kontakt">
+                </div>
                     {% block main %}
                     {% endblock %}
-                </main>
-                <footer>
-                    {% block footer %}
-                    {% endblock %}
-                </footer>
             </div>
           </div>
         </div>
