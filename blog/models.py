@@ -68,3 +68,11 @@ class Post(models.Model):
         verbose_name = "Článek"
         verbose_name_plural = "Články"
 
+
+class Podcast(models.Model):
+    embed = models.TextField(verbose_name="Vkládací kód")
+    published = models.DateTimeField(blank=True, verbose_name="Uveřejněno")
+
+    class Meta:
+        verbose_name = "Podcast"
+        verbose_name_plural = "Podcasty"

@@ -9,6 +9,10 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 
+        <script>
+            var static_url = "{% get_static_prefix %}";
+            var media_url = "{% get_media_prefix %}";
+        </script>
         <script src="{% static 'js/script.js' %}"></script>
 
         <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
@@ -28,7 +32,7 @@
                         <ul>
                             <li><a href="{% url 'blog.info' %}">Info</a></li>
                             <li><a href="{% url 'blog.list' %}">Blog</a></li>
-                            <li><a>Podcasty</a></li>
+                            <li><a href="{% url 'blog.podcasts' %}">Podcasty</a></li>
                         </ul>
                     </nav>
                     {% block header %}

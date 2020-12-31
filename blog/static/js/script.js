@@ -40,7 +40,7 @@ class Bug {
 
         this.vision = 200;
         this.separation = 0.001;
-        this.alignment = 0.015;
+        this.alignment = 0.02;
         this.cohesion = 0.0005;
         this.fear = 0.01;
 
@@ -130,11 +130,11 @@ let bug_count;
 let image_ref = [bug0, bug1, bug2, bug3, bug4];
 
 window.onload = function() {
-    bug0.src = 'static/img/bg/0.png';
-    bug1.src = 'static/img/bg/1.png';
-    bug2.src = 'static/img/bg/2.png';
-    bug3.src = 'static/img/bg/3.png';
-    bug4.src = 'static/img/bg/4.png';
+    bug0.src = static_url + '/img/bg/0.png';
+    bug1.src = static_url + '/img/bg/1.png';
+    bug2.src = static_url + '/img/bg/2.png';
+    bug3.src = static_url + '/img/bg/3.png';
+    bug4.src = static_url + '/img/bg/4.png';
     canvas_element = document.getElementById('bugs');
     width = canvas_element.scrollWidth;
     chaos_height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)*1.40;

@@ -38,5 +38,16 @@ class SectionAdmin(SummernoteModelAdmin):
         js = ("js/editor.js",)
 
 
+class PodcastAdmin(admin.ModelAdmin):
+    fields = ("embed", "published")
+    list_display = ("published",)
+
+    def save_model(self, request, obj, form, change):
+        if not obj.published:
+            obj.published = timezone.now()
+        super().save_model(request, obj, form, change)
+
+
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Section, SectionAdmin)
+admin.site.register(models.Podcast, PodcastAdmin)

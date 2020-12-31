@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Post, Section
+from .models import Post, Section, Podcast
 from django.conf import settings
 
 
@@ -32,3 +32,8 @@ class PostList(ListView):
     model = Post
     queryset = Post.objects.filter(draft=False).order_by("-published", "title")
     paginate_by = 10
+
+
+class Podcasts(ListView):
+    model = Podcast
+    queryset = Podcast.objects.order_by("-published")
