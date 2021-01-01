@@ -1,0 +1,163 @@
+@font-face {
+  font-family: "Courier New";
+  /*url(../Courier New Regular.ttf) format('truetype');*/
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  font-family: "Courier New";
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  text-align: justify;
+  hyphens: auto;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  color: #fe8627;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;/*
+  perspective: 8px;
+  perspective-origin: 0;*/
+  display: flex;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+/*
+.background {
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 140%;
+  height: max(5000px, 140vh);
+  transform: translateZ(-3px);
+}*/
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: max(5000px, 140vh);
+}
+
+.background #bugs {
+  width: 100%;
+  height: 100%;
+}
+
+.foreground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.foreground h1 {
+  font-size: 36px;
+  text-align: center;
+}
+
+.foreground .text-container {
+  margin-top: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 60%;
+  font-size: 22px;
+
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+
+  padding: 10px 20px 10px 20px;
+}
+
+.foreground .separator {
+  margin-top: 48px;
+  margin-bottom: 48px;
+  width: 60%;
+  color: #fe8627;
+}
+
+a {
+  color: #fe8627;
+}
+
+h1 a {
+  text-decoration: none;
+}
+
+#intro_page {
+  width:100%;
+  height: 100vh;
+}
+
+#intro_page div#title {
+  width: 40%;
+  margin-top: 2%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2vw;
+  text-align: right;
+}
+
+#intro_page .text-container {
+  width: 50%;
+  font-size: 1.4vw;
+  text-align: left;
+}
+
+img#title {
+  width: 100%;
+}
+
+img#mura {
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img#harmonogram {
+  width: 20%;
+  display: block;
+  position: absolute;
+  top: 3%;
+}
+
+img#podcast {
+  width: 20%;
+  display: block;
+  position: absolute;
+  left: 78%;
+  top: 5%;
+}
+
+img#obsah {
+  width: 20%;
+  display: block;
+  position: absolute;
+  top: 37%;
+}
+
+img#kontakt {
+  width: 20%;
+  display: block;
+  position: absolute;
+  top: 40%;
+  left: 78%;
+}

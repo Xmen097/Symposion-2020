@@ -1,0 +1,53 @@
+{% load static %}
+{% load blog_utils %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>NeŘád - Symposion 2020 | Gymnázium Jana Keplera</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+        <script>
+            var static_url = "{% get_static_prefix %}";
+            var media_url = "{% get_media_prefix %}";
+        </script>
+        <script src="{% static 'js/script.js' %}"></script>
+
+        <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif" type="text/css" rel="stylesheet">
+    </head>
+    <body ontouchstart="">
+        <div class="wrapper">
+          <div class="container">
+            <div class="background"><canvas id="bugs"></canvas></div>
+            <div class="foreground">
+                <div id="intro_page">
+                    <div id="title">
+                        <img src="{% static 'img/title.png' %}" id="title">
+                        Symposion GJK 2020/21
+                    </div>
+                    <!--<img src="{% static 'img/mura.png' %}" id="mura">-->
+                    <div class="text-container">
+                        <p>(ne)řád jako narušení struktury, výchylka, výjimka, chyba, mutace komplikující situaci</p>
+                        <p>(ne)řád jako svoboda, volnost, odklon od norem a konvencí.</p>
+                        <p>(ne)řád jako záškodník, parazit, narušitel a vetřelec.</p>
+                        <p>(ne)řád jako rozmanitost a pestrost, která obohacuje.</p>
+                        <p>(ne)řád jako vzdor a rebelie odmítající pravidla.</p>
+                        <p>(ne)řád jako divokost, nespoutanost, bordel a chaos.</p>
+                    </div>
+                    <img src="{% static 'img/tlacitkoHARMONOGRAM.png' %}" id="harmonogram">
+                    <img src="{% static 'img/tlacitkoPODCAST.png' %}" id="podcast">
+                    <img src="{% static 'img/tlacitkoWEBOBSAH.png' %}" id="obsah">
+                    <img src="{% static 'img/tlacitkoKONTAKT.png' %}" id="kontakt">
+                </div>
+                {% block main %}
+                {% endblock %}
+            </div>
+          </div>
+        </div>
+    </body>
+</html>
