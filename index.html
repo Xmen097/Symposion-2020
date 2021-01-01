@@ -6,16 +6,16 @@
     <head>
         <meta charset="UTF-8">
         <title>NeŘád - Symposion 2020 | Gymnázium Jana Keplera</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/style.css" />
 
         <script>
-            var static_url = "{% get_static_prefix %}";
+            var static_url = 'static/';
             var media_url = "{% get_media_prefix %}";
         </script>
-        <script src="{% static 'js/script.js' %}"></script>
+        <script src="static/js/script.js"></script>
 
-        <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+        <link rel="icon" type="image/png" href="static/img/favicon.ico"/>
 
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif" type="text/css" rel="stylesheet">
@@ -27,7 +27,7 @@
             <div class="foreground">
                 <div id="intro_page">
                     <div id="title">
-                        <img src="{% static 'img/title.png' %}" id="title">
+                        <img src="static/img/title.png" id="title">
                         Symposion GJK 2020/21
                     </div>
                     <!--<img src="{% static 'img/mura.png' %}" id="mura">-->
@@ -39,13 +39,11 @@
                         <p>(ne)řád jako vzdor a rebelie odmítající pravidla.</p>
                         <p>(ne)řád jako divokost, nespoutanost, bordel a chaos.</p>
                     </div>
-                    <img src="{% static 'img/tlacitkoHARMONOGRAM.png' %}" id="harmonogram">
-                    <img src="{% static 'img/tlacitkoPODCAST.png' %}" id="podcast">
-                    <img src="{% static 'img/tlacitkoWEBOBSAH.png' %}" id="obsah">
-                    <img src="{% static 'img/tlacitkoKONTAKT.png' %}" id="kontakt">
+                    <img src="static/img/tlacitkoHARMONOGRAM.png" id="harmonogram">
+                    <img src="static/img/tlacitkoPODCAST.png" id="podcast">
+                    <img src="static/img/tlacitkoWEBOBSAH.png" id="obsah">
+                    <img src="static/img/tlacitkoKONTAKT.png" id="kontakt">
                 </div>
-                {% block main %}
-                {% endblock %}
             </div>
           </div>
         </div>
