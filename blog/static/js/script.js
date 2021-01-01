@@ -28,7 +28,6 @@ function get_scale(val) {
 let chaos_bugs = [];
 
 class Chaos_Bug {
-
     constructor(x, y , type, angle) {
         this.x = typeof x !== 'undefined' ? x : random(0, width);
         this.y = typeof y !== 'undefined' ? y : random(0, chaos_height);
@@ -128,9 +127,6 @@ let SB_spawn_timeout = 0;
 let SB_speed = -1;
 
 class Stream_Bug {
-    static bugs = [];
-
-
     constructor(y) {
         this.y = typeof y !== 'undefined' ? y : height+100;
         this.type1 = random(0, 4);
