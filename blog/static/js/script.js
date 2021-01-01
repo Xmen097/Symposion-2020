@@ -162,7 +162,8 @@ class Stream_Bug {
             bug1.draw(canvas);
             bug2.draw(canvas);
             extra_bug_count += 2;
-            stream_bugs.splice(stream_bugs.indexOf(this), 1);
+            stream_bugs.shift();
+            stream_bugs[0].draw(canvas);
         }
     }
 }
@@ -211,7 +212,7 @@ window.onload = function() {
     max_bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
     for (let a=0; a<max_bug_count; a++)
         new Chaos_Bug();
-    for (let y=height+100; y>chaos_height; y+=SB_spawn_cooldown*SB_speed)
+    for (let y=chaos_height; y<height+100; y-=SB_spawn_cooldown*SB_speed)
         new Stream_Bug(y);
     draw();
 
