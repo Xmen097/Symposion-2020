@@ -41,7 +41,7 @@ class Chaos_Bug {
 
         this.vision = 200;
         this.separation = 0.001;
-        this.alignment = 0.02;
+        this.alignment = 0.01;
         this.cohesion = 0.0005;
         this.fear = 1;
 
