@@ -128,9 +128,7 @@ let SB_spawn_timeout = 0;
 let SB_speed = -1;
 
 class Stream_Bug {
-    static bugs = [];
-
-
+    
     constructor(y) {
         this.y = typeof y !== 'undefined' ? y : height+100;
         this.type1 = random(0, 4);
@@ -212,7 +210,7 @@ window.onload = function() {
     max_bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
     for (let a=0; a<max_bug_count; a++)
         new Chaos_Bug();
-    for (let y=height+100; y>chaos_height; y+=SB_spawn_cooldown*SB_speed)
+    for (let y=chaos_height; y<height+100; y-=SB_spawn_cooldown*SB_speed)
         new Stream_Bug(y);
     draw();
 
