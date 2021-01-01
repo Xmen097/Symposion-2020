@@ -23,7 +23,7 @@ class PostDetail(DetailView):
         return context
 
 
-class DraftDetail(LoginRequiredMixin, DetailView): 
+class DraftDetail(LoginRequiredMixin, DetailView):
     model = Post
     raise_exception = True
 
