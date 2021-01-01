@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 function random(start, end) { // both inclusive
     return Math.floor((Math.random() * (end+start-1)) + start);
@@ -25,9 +25,9 @@ function get_scale(val) {
     return Math.pow(val, 1/scaling_factor);
 }
 
-class Bug {
-    static bugs = [];
+let bugs = [];
 
+class Bug {
     constructor() {
         this.x = random(0, width);
         this.y = random(0, chaos_height);
@@ -42,9 +42,9 @@ class Bug {
         this.separation = 0.001;
         this.alignment = 0.02;
         this.cohesion = 0.0005;
-        this.fear = 0.01;
+        this.fear = 1;
 
-        Bug.bugs.push(this);
+        bugs.push(this);
     }
     draw(canvas) {
         canvas.setTransform(scale, 0, 0, scale, this.x, this.y);
@@ -60,7 +60,7 @@ class Bug {
         let dis_sum = vec2();
         let vel_sum = vec2();
         let num = 0;
-        Bug.bugs.forEach((bug) => {
+        bugs.forEach((bug) => {
             if (this == bug) {
                 return;
             }
@@ -80,15 +80,16 @@ class Bug {
             steer.x += vel_sum.x/num * this.alignment;
             steer.y += vel_sum.y/num * this.alignment;
             steer.x += (pos_sum.x/num - this.x) * this.cohesion;
-            steer.y += (pos_sum.x/num - this.x) * this.cohesion;
+            steer.y += (pos_sum.y/num - this.y) * this.cohesion;
         }
         let border_velocity = vec2();
         border_velocity.x = Math.log(Math.max(border_repulsion_margin-this.x, this.x-(width-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.x > 0 ? 1 : -1);
         border_velocity.y = Math.log(Math.max(border_repulsion_margin-this.y, this.y-(chaos_height-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.y > 0 ? 1 : -1);
 
         if (mouse.x != null && mouse.y != null && dist(mouse, this) < this.vision) {
-            steer.x -= (mouse.x-this.x) * this.fear;
-            steer.y -= (mouse.y-this.y) * this.fear;
+            let fear_vec = normalized(vec2(mouse.x-this.x, mouse.y-this.y));
+            steer.x -= fear_vec.x * this.fear;
+            steer.y -= fear_vec.y * this.fear;
         }
 
         this.velocity.x += steer.x+border_velocity.x;
@@ -160,7 +161,7 @@ function draw() {
     canvas.save();
     canvas.fillStyle = '#00324b';
     canvas.fillRect(0, 0, width, height);
-    Bug.bugs.forEach(bug => bug.draw(canvas));
+    bugs.forEach(bug => bug.draw(canvas));
     canvas.restore();
     window.requestAnimationFrame(draw);
 }
@@ -176,7 +177,7 @@ window.onresize = function() {
     canvas_element.style.height = height;
     scale = get_scale((width*chaos_height / 200**2)/(lin_scaling_factor));
     bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
-    Bug.bugs = [];
+    bugs = [];
     for (let a=0; a<bug_count; a++)
         new Bug();
 };
