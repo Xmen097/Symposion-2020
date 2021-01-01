@@ -1,7 +1,7 @@
 "use strict"
 
 function random(start, end) { // both inclusive
-    return Math.floor((Math.random() * (end+start-1)) + start);
+    return Math.floor((Math.random() * (end-start-1)) + start);
 }
 
 function vec2(x, y) {
@@ -25,15 +25,15 @@ function get_scale(val) {
     return Math.pow(val, 1/scaling_factor);
 }
 
-class Bug {
+class Chaos_Bug {
     static bugs = [];
 
-    constructor() {
-        this.x = random(0, width);
-        this.y = random(0, chaos_height);
-        this.type = random(0, 4);
+    constructor(x, y , type, angle) {
+        this.x = typeof x !== 'undefined' ? x : random(0, width);
+        this.y = typeof y !== 'undefined' ? y : random(0, chaos_height);
+        this.type = typeof type !== 'undefined' ? type : random(0, 4);
         this.img_ref = image_ref[this.type];
-        this.angle = random(0, 2*Math.PI*1000)/1000;
+        this.angle = typeof angle !== 'undefined' ? angle : random(0, 2*Math.PI*1000)/1000;
 
         this.speed = random(7, 11)/10.0;
         this.velocity = vec2(this.speed*Math.cos(this.angle), this.speed*Math.sin(this.angle));
@@ -44,7 +44,9 @@ class Bug {
         this.cohesion = 0.0005;
         this.fear = 0.01;
 
-        Bug.bugs.push(this);
+        this.dying = false; // set to true if bug is to die due to overcrowding
+
+        Chaos_Bug.bugs.push(this);
     }
     draw(canvas) {
         canvas.setTransform(scale, 0, 0, scale, this.x, this.y);
@@ -60,7 +62,7 @@ class Bug {
         let dis_sum = vec2();
         let vel_sum = vec2();
         let num = 0;
-        Bug.bugs.forEach((bug) => {
+        Chaos_Bug.bugs.forEach((bug) => {
             if (this == bug) {
                 return;
             }
@@ -83,9 +85,22 @@ class Bug {
             steer.y += (pos_sum.x/num - this.x) * this.cohesion;
         }
         let border_velocity = vec2();
-        border_velocity.x = Math.log(Math.max(border_repulsion_margin-this.x, this.x-(width-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.x > 0 ? 1 : -1);
-        border_velocity.y = Math.log(Math.max(border_repulsion_margin-this.y, this.y-(chaos_height-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.y > 0 ? 1 : -1);
-
+        if (extra_bug_count <= extra_bug_dying && !this.dying) {
+            border_velocity.x = Math.log(Math.max(border_repulsion_margin-this.x, this.x-(width-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.x > 0 ? 1 : -1);
+            border_velocity.y = Math.log(Math.max(border_repulsion_margin-this.y, this.y-(chaos_height-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.y > 0 ? 1 : -1);
+        } else {
+            if (!this.dying) {
+                this.dying = true;
+                extra_bug_dying+=1;
+            } // attract to border
+            border_velocity.x = Math.sqrt(Math.max(this.x, width-this.x)) * (this.x > width-this.x ? 1 : -1);
+            border_velocity.y = Math.sqrt(chaos_height-this.y)*-1;
+            if (width+200 < this.x || this.x < -200 || this.y < -200) {
+                Chaos_Bug.bugs.splice(Chaos_Bug.bugs.indexOf(this), 1);
+                extra_bug_dying-=1;
+                extra_bug_count-=1;
+            }
+        }
         if (mouse.x != null && mouse.y != null && dist(mouse, this) < this.vision) {
             steer.x -= (mouse.x-this.x) * this.fear;
             steer.y -= (mouse.y-this.y) * this.fear;
@@ -102,6 +117,49 @@ class Bug {
 
         this.x += this.velocity.x;
         this.y += this.velocity.y;
+    }
+}
+
+class Stream_Bug {
+    static bugs = [];
+
+    static spawn_cooldown = 180;
+    static spawn_timeout = 0;
+    static speed = -1;
+
+    constructor(y) {
+        this.y = typeof y !== 'undefined' ? y : height+100;
+        this.type1 = random(0, 4);
+        this.img_ref1 = image_ref[this.type1];
+        this.type2 = random(0, 4);
+        this.img_ref2 = image_ref[this.type2];
+        this.angle = -Math.PI/2;
+
+        this.velocity = vec2(0, 1);
+        Stream_Bug.spawn_timeout = Stream_Bug.spawn_cooldown;
+
+        Stream_Bug.bugs.push(this);
+    }
+    draw(canvas) {
+        canvas.setTransform(scale, 0, 0, scale, width-75, this.y);
+        canvas.rotate(this.angle);
+        canvas.drawImage(this.img_ref1, -this.img_ref1.width / 2, -this.img_ref1.height / 2);
+        canvas.setTransform(scale, 0, 0, scale, width-200, this.y);
+        canvas.rotate(this.angle);
+        canvas.drawImage(this.img_ref2, -this.img_ref2.width / 2, -this.img_ref2.height / 2);
+
+        this.update();
+    }
+    update() {
+        this.y += Stream_Bug.speed * scale;
+        if (this.y < chaos_height) {
+            let bug1 = new Chaos_Bug(width-75, this.y, this.type1, this.angle);
+            let bug2 = new Chaos_Bug(width-200, this.y, this.type2, this.angle);
+            bug1.draw(canvas);
+            bug2.draw(canvas);
+            extra_bug_count += 2;
+            Stream_Bug.bugs.splice(Stream_Bug.bugs.indexOf(this), 1);
+        }
     }
 }
 
@@ -125,7 +183,9 @@ let bug_density = 5;
 let scale;
 let scaling_factor = 3;
 let lin_scaling_factor = 25;
-let bug_count;
+let max_bug_count;
+let extra_bug_count = 0;
+let extra_bug_dying = 0;
 
 let image_ref = [bug0, bug1, bug2, bug3, bug4];
 
@@ -144,9 +204,11 @@ window.onload = function() {
     canvas_element.width = width;
     canvas_element.height = height;
     scale = get_scale((width*chaos_height / 200**2)/(lin_scaling_factor));
-    bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
-    for (let a=0; a<bug_count; a++)
-        new Bug();
+    max_bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
+    for (let a=0; a<max_bug_count; a++)
+        new Chaos_Bug();
+    for (let y=height+100; y>chaos_height; y+=Stream_Bug.spawn_cooldown*Stream_Bug.speed)
+        new Stream_Bug(y);
     draw();
 
     window.addEventListener('mousemove', function(evt) {
@@ -160,7 +222,12 @@ function draw() {
     canvas.save();
     canvas.fillStyle = '#00324b';
     canvas.fillRect(0, 0, width, height);
-    Bug.bugs.forEach(bug => bug.draw(canvas));
+    Chaos_Bug.bugs.forEach(bug => bug.draw(canvas));
+    Stream_Bug.bugs.forEach(bug => bug.draw(canvas));
+    if (Stream_Bug.spawn_timeout === 0) {
+        new Stream_Bug();
+    } else
+        Stream_Bug.spawn_timeout--;
     canvas.restore();
     window.requestAnimationFrame(draw);
 }
@@ -175,8 +242,8 @@ window.onresize = function() {
     canvas_element.height = height;
     canvas_element.style.height = height;
     scale = get_scale((width*chaos_height / 200**2)/(lin_scaling_factor));
-    bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
-    Bug.bugs = [];
-    for (let a=0; a<bug_count; a++)
-        new Bug();
+    max_bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
+    Chaos_Bug.bugs = [];
+    for (let a=0; a<max_bug_count; a++)
+        new Chaos_Bug();
 };
