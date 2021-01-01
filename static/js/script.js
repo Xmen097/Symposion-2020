@@ -162,7 +162,8 @@ class Stream_Bug {
             bug1.draw(canvas);
             bug2.draw(canvas);
             extra_bug_count += 2;
-            stream_bugs.splice(stream_bugs.indexOf(this), 1);
+            stream_bugs.shift();
+            stream_bugs[0].draw(canvas);
         }
     }
 }
