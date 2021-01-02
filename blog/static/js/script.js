@@ -10,6 +10,7 @@ function vec2(x, y) {
 
 function dist(a, b) {
     return norm(vec2(a.x-b.x, a.y-b.y));
+    //return Math.abs(a.x-b.x)+Math.abs(a.y-b.y)
 }
 
 function norm(v) {
@@ -23,6 +24,10 @@ function normalized(v) {
 function get_scale(val) {
   /*return Math.log(val) / Math.log(scaling_factor);*/
     return Math.pow(val, 1/scaling_factor);
+}
+
+function scroll(location) {
+    window.location = location
 }
 
 let chaos_bugs = [];
@@ -53,7 +58,7 @@ class Chaos_Bug {
         canvas.rotate(this.angle);
         canvas.drawImage(this.img_ref, -this.img_ref.width / 2, -this.img_ref.height / 2);
 
-        this.update();
+            this.update();
     }
     update() {
         let steer = vec2();
@@ -190,6 +195,14 @@ let extra_bug_dying = 0;
 
 let image_ref = [bug0, bug1, bug2, bug3, bug4];
 
+//fps counter stuff
+let frames_to_stabilize = 10;
+let frames_elapsed = 0;
+let max_frame_time = 150; // replace with solid img if less than 10 frames
+let too_slow = false;
+let filterStrength = 20;
+let frameTime = 0, lastLoop = Date.now(), thisLoop;
+
 window.onload = function() {
     bug0.src = static_url + 'img/bg/0.png';
     bug1.src = static_url + 'img/bg/1.png';
@@ -219,6 +232,9 @@ window.onload = function() {
 };
 
 function draw() {
+    if (too_slow)
+        return;
+
     canvas.save();
     canvas.fillStyle = '#00324b';
     canvas.fillRect(0, 0, width, height);
@@ -229,6 +245,14 @@ function draw() {
     } else
         SB_spawn_timeout--;
     canvas.restore();
+    if (frames_elapsed < frames_to_stabilize) {
+    let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
+    frameTime+= (thisFrameTime - frameTime) / filterStrength;
+    lastLoop = thisLoop;
+    frames_elapsed++;
+    } else if (frameTime > max_frame_time) {
+        too_slow=true;
+    }
     window.requestAnimationFrame(draw);
 }
 

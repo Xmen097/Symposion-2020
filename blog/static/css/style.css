@@ -38,7 +38,7 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: max(5000px, 140vh);
+  height: 315vh;
 }
 
 .background #bugs {
@@ -80,6 +80,12 @@ body {
   color: #fe8627;
 }
 
+.foreground .separator2 {
+  width: 80%;
+  color: #00a6fc;
+  margin-left: 0;
+}
+
 a {
   color: #fe8627;
   text-decoration: none;
@@ -97,8 +103,8 @@ h1.section {
   height: 100vh;
   position: relative;
 }
-
-#intro-page div#title {
+@media screen and (aspect-ratio: 1) {}
+#intro div#title {
   width: 40%;
   margin-top: 2%;
   display: block;
@@ -108,16 +114,18 @@ h1.section {
   text-align: right;
 }
 
-#intro-page .text-container {
+#intro .text-container {
   width: 50%;
   font-size: 1.4vw;
   text-align: left;
 }
 
-#harmonogram-page .text-container {
+#harmonogram .text-container {
   width: 75%;
   font-size: 1.4vw;
   text-align: center;
+  margin-left: 1.25%;
+  height: 75%;
 }
 img#title {
   width: 100%;
@@ -130,36 +138,106 @@ img#mura {
   margin-right: auto;
 }
 
-img#harmonogram-btn {
+a#harmonogram-btn {
   cursor:pointer;
-  width: 20%;
+  width: 15%;
   display: block;
   position: absolute;
-  top: 3%;
+  top: 5%;
+  left: 3%;
 }
 
-img#gjk-btn {
+a#gjk-btn {
   cursor:pointer;
-  width: 20%;
+  width: 15%;
   display: block;
   position: absolute;
-  left: 78%;
+  left: 80%;
   top: 5%;
 }
 
-img#obsah-btn {
+a#obsah-btn {
   cursor:pointer;
-  width: 20%;
+  width: 15%;
   display: block;
   position: absolute;
-  top: 37%;
+  top: 45%;
+  left: 3%;
 }
 
-img#kontakt-btn {
+a#kontakt-btn {
   cursor:pointer;
-  width: 20%;
+  width: 15%;
   display: block;
   position: absolute;
-  top: 40%;
-  left: 78%;
+  top: 45%;
+  left: 80%;
+}
+img.btn {
+  width: 100%;
+  height: 100%;
+}
+
+
+div#kontakt-text {
+  width: 30%;
+  height: 30%;
+  position: absolute;
+  top: 20%;
+  left: 7%;
+  color: #00a6fc;
+  font-size: 16px;
+}
+
+div#gmaps {
+  width: 40%;
+  height: 45%;
+  position: absolute;
+  top: 45%;
+  left: 2%;
+  font-weight: bold;
+  font-size: 1.2vw;
+  color: #00a6fc;
+}
+
+iframe#gmaps {
+  border-width: 3px;
+  border-radius: 3px;
+  border-color: #00a6fc;
+  width: 100%;
+  height: 90%;
+}
+
+.page h2 {
+  color: #00a6fc;
+  font-size: 3vw;
+  display: block;
+  position: relative;
+  top: 2.5%;
+  left: 3%;
+}
+
+a#ig-btn {
+  cursor:pointer;
+  width: 15%;
+  display: block;
+  position: absolute;
+  top: 15%;
+  left: 65%;
+}
+a#fb-btn {
+  cursor:pointer;
+  width: 15%;
+  display: block;
+  position: absolute;
+  top: 45%;
+  left: 60%;
+}
+a#mail-btn {
+  cursor:pointer;
+  width: 15%;
+  display: block;
+  position: absolute;
+  top: 21%;
+  left: 47%;
 }
