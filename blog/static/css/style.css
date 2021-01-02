@@ -103,7 +103,7 @@ h1.section {
   height: 100vh;
   position: relative;
 }
-@media screen and (aspect-ratio: 1) {}
+@media screen and (max-aspect-ratio: 1/1) {}
 #intro div#title {
   width: 40%;
   margin-top: 2%;
