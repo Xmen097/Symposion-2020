@@ -175,7 +175,7 @@ h1.section {
   }
   #intro .text-container {
     width: 60%;
-    font-size: 2.5vh;
+    font-size: 2.1vh;
     text-align: left;
   }
   a#harmonogram-btn {
@@ -201,7 +201,7 @@ h1.section {
     width: 22%;
     display: block;
     position: absolute;
-    top: 70%;
+    top: 75%;
     left: 2%;
   }
 
@@ -311,7 +311,7 @@ iframe#gmaps {
     top: 10%;
     left: 2%;
     color: #00a6fc;
-    font-size: 2.5vh;
+    font-size: 2.2vh;
   }
   div#gmaps {
     width: 60%;
