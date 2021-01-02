@@ -45,7 +45,7 @@ class Chaos_Bug {
 
         this.vision = 200;
         this.separation = 0.001;
-        this.alignment = 0.02;
+        this.alignment = 0.01;
         this.cohesion = 0.0005;
         this.fear = 1;
 
@@ -132,6 +132,10 @@ let SB_spawn_timeout = 0;
 let SB_speed = -1;
 
 class Stream_Bug {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 812b8b806dcbc37ffb7c798fc2d0abe4114408bc
     constructor(y) {
         this.y = typeof y !== 'undefined' ? y : height+100;
         this.type1 = random(0, 4);
