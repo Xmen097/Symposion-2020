@@ -46,6 +46,16 @@ body {
   height: 100%;
 }
 
+.background #stream {
+  margin-left: 80%;
+  width: 25%;
+  height: 215vh;
+  position: absolute;
+  top: 100vh;
+  cursor:pointer;
+  z-index: 100;
+}
+
 .foreground {
   position: absolute;
   top: 0;
@@ -103,23 +113,107 @@ h1.section {
   height: 100vh;
   position: relative;
 }
-@media screen and (max-aspect-ratio: 1/1) {}
 #intro div#title {
-  width: 40%;
-  margin-top: 2%;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  font-size: 2vw;
   text-align: right;
 }
 
-#intro .text-container {
-  width: 50%;
-  font-size: 1.4vw;
-  text-align: left;
-}
+@media screen and (min-aspect-ratio: 5/4) { /*normal device */
+  #intro div#title {
+    width: 40%;
+    padding-top: 2%;
+    font-size: 2vw;
+  }
+  #intro .text-container {
+    width: 50%;
+    font-size: 1.4vw;
+    text-align: left;
+  }
+  a#harmonogram-btn {
+    cursor:pointer;
+    width: 15%;
+    display: block;
+    position: absolute;
+    top: 7%;
+    left: 3%;
+  }
 
+  a#gjk-btn {
+    cursor:pointer;
+    width: 15%;
+    display: block;
+    position: absolute;
+    left: 80%;
+    top: 7%;
+  }
+
+  a#obsah-btn {
+    cursor:pointer;
+    width: 15%;
+    display: block;
+    position: absolute;
+    top: 47%;
+    left: 3%;
+  }
+
+  a#kontakt-btn {
+    cursor:pointer;
+    width: 15%;
+    display: block;
+    position: absolute;
+    top: 47%;
+    left: 80%;
+  }
+}
+@media screen and (max-aspect-ratio: 5/4) { /*portrait device */
+  #intro div#title {
+    width: 50%;
+    padding-top: 2%;
+    font-size: 2.5vh;
+  }
+  #intro .text-container {
+    width: 60%;
+    font-size: 2.1vh;
+    text-align: left;
+  }
+  a#harmonogram-btn {
+    cursor:pointer;
+    width: 22%;
+    display: block;
+    position: absolute;
+    top: 2%;
+    left: 2%;
+  }
+
+  a#gjk-btn {
+    cursor:pointer;
+    width: 20%;
+    display: block;
+    position: absolute;
+    left: 80%;
+    top: 2%;
+  }
+
+  a#obsah-btn {
+    cursor:pointer;
+    width: 22%;
+    display: block;
+    position: absolute;
+    top: 75%;
+    left: 2%;
+  }
+
+  a#kontakt-btn {
+    cursor:pointer;
+    width: 22%;
+    display: block;
+    position: absolute;
+    top: 75%;
+    left: 80%;
+  }
+}
 #harmonogram .text-container {
   width: 75%;
   font-size: 1.4vw;
@@ -131,74 +225,13 @@ img#title {
   width: 100%;
 }
 
-img#mura {
-  width: 60%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
 
-a#harmonogram-btn {
-  cursor:pointer;
-  width: 15%;
-  display: block;
-  position: absolute;
-  top: 5%;
-  left: 3%;
-}
-
-a#gjk-btn {
-  cursor:pointer;
-  width: 15%;
-  display: block;
-  position: absolute;
-  left: 80%;
-  top: 5%;
-}
-
-a#obsah-btn {
-  cursor:pointer;
-  width: 15%;
-  display: block;
-  position: absolute;
-  top: 45%;
-  left: 3%;
-}
-
-a#kontakt-btn {
-  cursor:pointer;
-  width: 15%;
-  display: block;
-  position: absolute;
-  top: 45%;
-  left: 80%;
-}
 img.btn {
   width: 100%;
   height: 100%;
 }
 
 
-div#kontakt-text {
-  width: 30%;
-  height: 30%;
-  position: absolute;
-  top: 20%;
-  left: 7%;
-  color: #00a6fc;
-  font-size: 16px;
-}
-
-div#gmaps {
-  width: 40%;
-  height: 45%;
-  position: absolute;
-  top: 45%;
-  left: 2%;
-  font-weight: bold;
-  font-size: 1.2vw;
-  color: #00a6fc;
-}
 
 iframe#gmaps {
   border-width: 3px;
@@ -217,27 +250,103 @@ iframe#gmaps {
   left: 3%;
 }
 
-a#ig-btn {
-  cursor:pointer;
-  width: 15%;
-  display: block;
-  position: absolute;
-  top: 15%;
-  left: 65%;
+
+@media screen and (min-aspect-ratio: 5/4) {
+    /*normal device */
+
+  div#kontakt-text {
+    width: 30%;
+    height: 30%;
+    position: absolute;
+    top: 20%;
+    left: 7%;
+    color: #00a6fc;
+    font-size: 16px;
+  }
+  div#gmaps {
+    width: 40%;
+    height: 45%;
+    position: absolute;
+    top: 45%;
+    left: 2%;
+    font-weight: bold;
+    font-size: 1.2vw;
+    color: #00a6fc;
+  }
+  a#ig-btn {
+    cursor: pointer;
+    width: 15%;
+    display: block;
+    position: absolute;
+    top: 15%;
+    left: 65%;
+  }
+
+  a#fb-btn {
+    cursor: pointer;
+    width: 15%;
+    display: block;
+    position: absolute;
+    top: 45%;
+    left: 60%;
+  }
+
+  a#mail-btn {
+    cursor: pointer;
+    width: 15%;
+    display: block;
+    position: absolute;
+    top: 21%;
+    left: 47%;
+  }
 }
-a#fb-btn {
-  cursor:pointer;
-  width: 15%;
-  display: block;
-  position: absolute;
-  top: 45%;
-  left: 60%;
-}
-a#mail-btn {
-  cursor:pointer;
-  width: 15%;
-  display: block;
-  position: absolute;
-  top: 21%;
-  left: 47%;
+
+@media screen and (max-aspect-ratio: 5/4) {
+  /*portrait device */
+
+  div#kontakt-text {
+    width: 60%;
+    height: 30%;
+    position: absolute;
+    top: 10%;
+    left: 2%;
+    color: #00a6fc;
+    font-size: 2.2vh;
+  }
+  div#gmaps {
+    width: 60%;
+    height: 45%;
+    position: absolute;
+    top: 52%;
+    left: 2%;
+    font-weight: bold;
+    font-size: 1.8vh;
+    color: #00a6fc;
+  }
+  a#ig-btn {
+    cursor: pointer;
+    width: 22%;
+    display: block;
+    position: absolute;
+    top: 15%;
+    left: 73%;
+  }
+
+  a#fb-btn {
+    cursor: pointer;
+    width: 22%;
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 73%;
+  }
+
+  a#mail-btn {
+    cursor: pointer;
+    width: 22%;
+    display: block;
+    position: absolute;
+    top: 62%;
+    left: 73%;
+  }
 }
