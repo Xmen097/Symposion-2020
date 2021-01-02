@@ -2,6 +2,7 @@
 {% load blog_utils %}
 
 {% block main %}
+	<h1 id="posts">Články</h1>
 	{% for post in page_obj %}
 	    <article class="preview text-container">
 	    	<h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>

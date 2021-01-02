@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 function random(start, end) { // both inclusive
     return Math.floor(Math.random() * (end - start + 1) + start);

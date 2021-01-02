@@ -130,14 +130,14 @@ img#mura {
   margin-right: auto;
 }
 
-img#harmonogram {
+img#harmonogram-btn {
   width: 20%;
   display: block;
   position: absolute;
   top: 3%;
 }
 
-img#podcast {
+img#podcast-btn {
   width: 20%;
   display: block;
   position: absolute;
@@ -145,14 +145,14 @@ img#podcast {
   top: 5%;
 }
 
-img#obsah {
+img#obsah-btn {
   width: 20%;
   display: block;
   position: absolute;
   top: 37%;
 }
 
-img#kontakt {
+img#kontakt-btn {
   width: 20%;
   display: block;
   position: absolute;
