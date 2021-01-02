@@ -1,7 +1,7 @@
-"use strict"
+"use strict";
 
 function random(start, end) { // both inclusive
-    return Math.floor((Math.random() * (end-start-1)) + start);
+    return Math.floor(Math.random() * (end - start + 1) + start);
 }
 
 function vec2(x, y) {
@@ -10,6 +10,7 @@ function vec2(x, y) {
 
 function dist(a, b) {
     return norm(vec2(a.x-b.x, a.y-b.y));
+    //return Math.abs(a.x-b.x)+Math.abs(a.y-b.y)
 }
 
 function norm(v) {
@@ -25,10 +26,13 @@ function get_scale(val) {
     return Math.pow(val, 1/scaling_factor);
 }
 
+function scroll(location) {
+    window.location = location
+}
+
 let chaos_bugs = [];
 
 class Chaos_Bug {
-
     constructor(x, y , type, angle) {
         this.x = typeof x !== 'undefined' ? x : random(0, width);
         this.y = typeof y !== 'undefined' ? y : random(0, chaos_height);
@@ -54,7 +58,7 @@ class Chaos_Bug {
         canvas.rotate(this.angle);
         canvas.drawImage(this.img_ref, -this.img_ref.width / 2, -this.img_ref.height / 2);
 
-        this.update();
+            this.update();
     }
     update() {
         let steer = vec2();
@@ -128,9 +132,6 @@ let SB_spawn_timeout = 0;
 let SB_speed = -1;
 
 class Stream_Bug {
-    static bugs = [];
-
-
     constructor(y) {
         this.y = typeof y !== 'undefined' ? y : height+100;
         this.type1 = random(0, 4);
@@ -162,7 +163,8 @@ class Stream_Bug {
             bug1.draw(canvas);
             bug2.draw(canvas);
             extra_bug_count += 2;
-            stream_bugs.splice(stream_bugs.indexOf(this), 1);
+            stream_bugs.shift();
+            stream_bugs[0].draw(canvas);
         }
     }
 }
@@ -186,12 +188,20 @@ let border_repulsion_margin;
 let bug_density = 5;
 let scale;
 let scaling_factor = 3;
-let lin_scaling_factor = 25;
+let lin_scaling_factor = 50;
 let max_bug_count;
 let extra_bug_count = 0;
 let extra_bug_dying = 0;
 
 let image_ref = [bug0, bug1, bug2, bug3, bug4];
+
+//fps counter stuff
+let frames_to_stabilize = 10;
+let frames_elapsed = 0;
+let max_frame_time = 150; // replace with solid img if less than 10 frames
+let too_slow = false;
+let filterStrength = 20;
+let frameTime = 0, lastLoop = Date.now(), thisLoop;
 
 window.onload = function() {
     bug0.src = static_url + 'img/bg/0.png';
@@ -211,7 +221,7 @@ window.onload = function() {
     max_bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
     for (let a=0; a<max_bug_count; a++)
         new Chaos_Bug();
-    for (let y=height+100; y>chaos_height; y+=SB_spawn_cooldown*SB_speed)
+    for (let y=chaos_height; y<height+100; y-=SB_spawn_cooldown*SB_speed)
         new Stream_Bug(y);
     draw();
 
@@ -222,6 +232,9 @@ window.onload = function() {
 };
 
 function draw() {
+    if (too_slow)
+        return;
+
     canvas.save();
     canvas.fillStyle = '#00324b';
     canvas.fillRect(0, 0, width, height);
@@ -232,6 +245,14 @@ function draw() {
     } else
         SB_spawn_timeout--;
     canvas.restore();
+    if (frames_elapsed < frames_to_stabilize) {
+    let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
+    frameTime+= (thisFrameTime - frameTime) / filterStrength;
+    lastLoop = thisLoop;
+    frames_elapsed++;
+    } else if (frameTime > max_frame_time) {
+        too_slow=true;
+    }
     window.requestAnimationFrame(draw);
 }
 
