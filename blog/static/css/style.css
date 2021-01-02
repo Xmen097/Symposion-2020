@@ -131,13 +131,15 @@ img#mura {
 }
 
 img#harmonogram-btn {
+  cursor:pointer;
   width: 20%;
   display: block;
   position: absolute;
   top: 3%;
 }
 
-img#podcast-btn {
+img#gjk-btn {
+  cursor:pointer;
   width: 20%;
   display: block;
   position: absolute;
@@ -146,6 +148,7 @@ img#podcast-btn {
 }
 
 img#obsah-btn {
+  cursor:pointer;
   width: 20%;
   display: block;
   position: absolute;
@@ -153,6 +156,7 @@ img#obsah-btn {
 }
 
 img#kontakt-btn {
+  cursor:pointer;
   width: 20%;
   display: block;
   position: absolute;

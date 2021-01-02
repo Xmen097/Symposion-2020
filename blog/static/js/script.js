@@ -183,7 +183,7 @@ let border_repulsion_margin;
 let bug_density = 5;
 let scale;
 let scaling_factor = 3;
-let lin_scaling_factor = 25;
+let lin_scaling_factor = 50;
 let max_bug_count;
 let extra_bug_count = 0;
 let extra_bug_dying = 0;

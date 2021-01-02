@@ -39,10 +39,10 @@
                         <p>(ne)řád jako vzdor a rebelie odmítající pravidla.</p>
                         <p>(ne)řád jako divokost, nespoutanost, bordel a chaos.</p>
                     </div>
-                    <a href="#harmonogram"><img src="{% static 'img/tlacitkoHARMONOGRAM.png' %}" id="harmonogram-btn"></a>
-                    <a href="{% url 'blog.podcasts' %}#podcasts"><img src="{% static 'img/tlacitkoPODCAST.png' %}" id="podcast-btn"></a>
-                    <a href="{% url 'blog.list' %}#posts"><img src="{% static 'img/tlacitkoWEBOBSAH.png' %}" id="obsah-btn"></a>
-                    <a href="#kontakt"><img src="{% static 'img/tlacitkoKONTAKT.png' %}" id="kontakt-btn"></a>
+                    <img src="{% static 'img/tlacitkoHARMONOGRAM.png' %}" id="harmonogram-btn" onclick="window.location='#harmonogram'">
+                    <img src="{% static 'img/tlacitkoGJK.png' %}" id="gjk-btn" onclick="window.location='https://gjk.cz'">
+                    <img src="{% static 'img/tlacitkoWEBOBSAH.png' %}" id="obsah-btn">
+                    <img src="{% static 'img/tlacitkoKONTAKT.png' %}" id="kontakt-btn" onclick="window.location='#kontakt'">
                 </div>
                 <div class="page" id="harmonogram-page">
                     <hr class="separator" style="margin-top:5%">
