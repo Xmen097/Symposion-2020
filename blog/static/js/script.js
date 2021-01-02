@@ -1,7 +1,7 @@
 "use strict"
 
 function random(start, end) { // both inclusive
-    return Math.floor((Math.random() * (end-start-1)) + start);
+    return Math.floor(Math.random() * (end - start + 1) + start);
 }
 
 function vec2(x, y) {
