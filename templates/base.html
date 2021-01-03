@@ -23,42 +23,10 @@
     <body ontouchstart="">
         <div class="wrapper">
           <div class="container">
-              <div class="background"><canvas id="bugs"></canvas><div id="stream" onclick="window.location='#intro'"></div></div>
+            <div class="background"><canvas id="bugs"></canvas><div id="stream" onclick="window.location='#intro'"></div></div>
             <div class="foreground">
-                <div class="page" id="intro">
-                    <div id="title">
-                        <img src="{% static 'img/title.png' %}" id="title">
-                        Symposion GJK 2020/21
-                    </div>
-                    <div class="text-container">
-                        <p>(ne)řád jako narušení struktury, výchylka, výjimka, chyba, mutace komplikující situaci</p>
-                        <p>(ne)řád jako svoboda, volnost, odklon od norem a konvencí.</p>
-                        <p>(ne)řád jako záškodník, parazit, narušitel a vetřelec.</p>
-                        <p>(ne)řád jako rozmanitost a pestrost, která obohacuje.</p>
-                        <p>(ne)řád jako vzdor a rebelie odmítající pravidla.</p>
-                        <p>(ne)řád jako divokost, nespoutanost, bordel a chaos.</p>
-                    </div>
-                    <a id="harmonogram-btn" href="#harmonogram"><img src="{% static 'img/tlacitkoHARMONOGRAM.png' %}" class="btn"> </a>
-                    <a id="gjk-btn" href="https://gjk.cz"><img src="{% static 'img/tlacitkoGJK.png' %}" class="btn"></a>
-                    <a id="obsah-btn" href=""><img src="{% static 'img/tlacitkoWEBOBSAH.png' %}" class="btn"></a>
-                    <a id="kontakt-btn" href="#kontakt"><img src="{% static 'img/tlacitkoKONTAKT.png' %}" class="btn"></a>
-                </div>
-                <div class="page" id="harmonogram">
-                    <h2> ne//řád harmonogram </h2>
-                    <hr class="separator2">
-                    <div class="text-container"> Harmonogram se připravuje</div>
-                </div>
-                <div class="page" id="kontakt">
-                    <h2> ne//řád kontakt </h2>
-                    <hr class="separator2">
-                    <div id="kontakt-text">Brouka vám do hlavy nasadíme na Gymnáziu Jana Keplera s řádnou adresou Parléřova 2. Ještě než proklouznete do budovy školy, přisajte se na naše sociální sítě a naslouchejte nespoutaný slovům. A kdybyste se cítili sami uprostřed všeobecného chaosu, napište nám na mail.</div>
-                    <div id="gmaps"><iframe id="gmaps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.91428932703!2d14.385109315786583!3d50.08789157942699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b951a87784a87%3A0x7cc9fd475f7b8166!2sGymn%C3%A1zium%20Jana%20Keplera!5e0!3m2!1scs!2scz!4v1609597010791!5m2!1scs!2scz" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                     Gymnázium Jana Keplera
-                     <span style="float:right;">Parléřova 2, 169 00 Praha 6</span></div>
-                    <a id="ig-btn" href="https://instagram.com/symposion_gjk"><img src="{% static 'img/igtlacitko.png' %}" class="btn"></a>
-                    <a id="mail-btn" href="mailto:symposion@gjk.cz"><img src="{% static 'img/mailtlacitko.png' %}" class="btn"> </a>
-                    <a id="fb-btn" href="https://fb.me/SymposionGjk"><img src="{% static 'img/fbtlacitko.png' %}" class="btn"> </a>
-                </div>
+                {% block main %}
+                {% endblock %}
             </div>
           </div>
         </div>
