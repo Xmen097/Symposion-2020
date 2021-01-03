@@ -314,6 +314,8 @@ function draw() {
             too_slow=2;
             frames_elapsed = 0;
         }
+    } else {
+
     }
     window.requestAnimationFrame(draw);
 }
