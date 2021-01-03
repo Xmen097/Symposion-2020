@@ -27,20 +27,9 @@ class PostAdmin(SummernoteModelAdmin):
         js = ("js/editor.js",)
 
 
-class SectionAdmin(SummernoteModelAdmin):
-    summernote_fields = ("content",)
-
-    fields = ("title", "content", "order", "markdown",)
-    list_display = ("title", "order", "markdown",)
-    ordering = ("order",)
-
-    class Media:
-        js = ("js/editor.js",)
-
-
 class PodcastAdmin(admin.ModelAdmin):
-    fields = ("embed", "published")
-    list_display = ("published",)
+    fields = ("embed", "published", "draft")
+    list_display = ("published", "draft")
 
     def save_model(self, request, obj, form, change):
         if not obj.published:
@@ -49,5 +38,4 @@ class PodcastAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Post, PostAdmin)
-admin.site.register(models.Section, SectionAdmin)
 admin.site.register(models.Podcast, PodcastAdmin)

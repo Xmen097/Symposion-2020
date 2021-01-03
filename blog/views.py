@@ -1,13 +1,29 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Post, Section, Podcast
+from .models import Content, Post, Podcast
 from django.conf import settings
 
 
-class SectionList(ListView):
-    model = Section
-    queryset = Section.objects.order_by("order")
+class ContentList(ListView):
+    model = Content
+    template_name = "content_list.html"
+    queryset = Content.objects.filter(draft=False).order_by("-published")
+    paginate_by = 10
+
+
+class PostList(ListView):
+    model = Post
+    template_name = "content_list.html"
+    queryset = Post.objects.filter(draft=False).order_by("-published", "title")
+    paginate_by = 10
+
+
+class PodcastList(ListView):
+    model = Podcast
+    template_name = "content_list.html"
+    queryset = Podcast.objects.filter(draft=False).order_by("-published")
+    paginate_by = 10
 
 
 class PostDetail(DetailView):
@@ -26,14 +42,3 @@ class PostDetail(DetailView):
 class DraftDetail(LoginRequiredMixin, DetailView):
     model = Post
     raise_exception = True
-
-
-class PostList(ListView):
-    model = Post
-    queryset = Post.objects.filter(draft=False).order_by("-published", "title")
-    paginate_by = 10
-
-
-class Podcasts(ListView):
-    model = Podcast
-    queryset = Podcast.objects.order_by("-published")
