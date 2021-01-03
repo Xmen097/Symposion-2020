@@ -7,23 +7,23 @@ from django.conf import settings
 
 class ContentList(ListView):
     model = Content
-    template_name = "content_list.html"
+    template_name = "blog/content_list.html"
     queryset = Content.objects.filter(draft=False).order_by("-published")
-    paginate_by = 10
+    paginate_by = 5
 
 
 class PostList(ListView):
     model = Post
-    template_name = "content_list.html"
+    template_name = "blog/content_list.html"
     queryset = Post.objects.filter(draft=False).order_by("-published", "title")
-    paginate_by = 10
+    paginate_by = 5
 
 
 class PodcastList(ListView):
     model = Podcast
-    template_name = "content_list.html"
+    template_name = "blog/content_list.html"
     queryset = Podcast.objects.filter(draft=False).order_by("-published")
-    paginate_by = 10
+    paginate_by = 5
 
 
 class PostDetail(DetailView):

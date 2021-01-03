@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.urls import reverse
+import bleach
 import markdown
 
 
@@ -22,6 +23,8 @@ class Post(Content):
     slug = models.SlugField()
 
     def save(self, *args, **kwargs):
+        if self.content and not self.markdown:
+            self.content = bleach.clean(self.content, strip=True, tags=["b", "i", "p", "u", "img", "video", "ul", "ol", "li", "blockquote", "q"])
         self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
 

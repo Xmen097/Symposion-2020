@@ -60,6 +60,13 @@ body {
   z-index: 100;
 }
 
+.background.online {
+  height: 100%; 
+  top: 0; 
+  left: 0; 
+  position: fixed;
+}
+
 .foreground {
   position: absolute;
   top: 0;
@@ -106,7 +113,7 @@ body {
 
 a {
   color: #fe8627;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 h1 {
@@ -126,6 +133,32 @@ h1.section {
   margin-left: auto;
   margin-right: auto;
   text-align: right;
+}
+
+nav {
+  width: 75%;
+  font-size: 1.4vw;
+  text-align: center;
+  margin-left: 1.25%;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-left: 2%;
+  text-decoration: underline;
+}
+
+a#zpet-btn {
+  top: 0;
+  right: 0;
+  display: block;
+  position: absolute;
 }
 
 @media screen and (min-aspect-ratio: 5/4) { /*normal device */
@@ -175,6 +208,7 @@ h1.section {
     left: 80%;
   }
 }
+
 @media screen and (max-aspect-ratio: 5/4) { /*portrait device */
   #intro div#title {
     width: 50%;
@@ -236,6 +270,13 @@ h1.section {
   margin-left: 1.25%;
 }
 
+#online .text-container p {
+  text-align: justify;
+  hyphens: auto;
+  display: block;
+  white-space: normal; 
+}
+
 img#title {
   width: 100%;
 }
@@ -246,8 +287,6 @@ img.btn {
   height: 100%;
 }
 
-
-
 iframe#gmaps {
   border-width: 3px;
   border-radius: 3px;
@@ -256,7 +295,7 @@ iframe#gmaps {
   height: 90%;
 }
 
-h2 a {
+.page h2 a {
   color: #00a6fc;
 }
 
@@ -267,8 +306,13 @@ h2 a {
   position: relative;
   top: 2.5%;
   left: 3%;
+  margin: 0;
+  padding-bottom: 10px;
 }
 
+h1 a, h2 a, h3 a {
+  text-decoration: none;
+}
 
 @media screen and (min-aspect-ratio: 5/4) {
     /*normal device */

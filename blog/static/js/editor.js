@@ -6,5 +6,5 @@ window.addEventListener("load", function(event) {
 
 	md_check.addEventListener("click", function(event) {	
 		document.getElementById("id_content_iframe").contentWindow.$('#summernote').summernote('codeview.toggle');
-	});	
+	});
 }); 

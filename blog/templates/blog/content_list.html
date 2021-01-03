@@ -2,11 +2,18 @@
 {% load static %}
 
 {% block main %}
-	<div class="background"></div>
+	<div class="online background"></div>
 	<div class="foreground">
 		<div class="page" id="online">
-			<h2>ne//řád online</h2>
+			<h2><a href="{% url 'blog.all' %}">ne//řád online</a></h2>
 			<hr class="separator2" />
+			<a id="zpet-btn" href="{% url 'blog.all' %}"><img src="{% static 'img/tlacitkoZPET.png' %}" class="btn"></a>
+			<nav>
+				<ul>
+					<li><a href="{% url 'blog.podcasts' %}">Podcasty a rozhovory</a></li>
+					<li><a href="{% url 'blog.posts' %}">Články</a></li>
+				</ul>
+			</nav>
 			{% for obj in page_obj %}
 				{% if obj.post %}
 				    <article class="preview text-container">
@@ -29,7 +36,6 @@
 			    	<p>Ještě tu nic není, vraťte se později.</p>
 			    </div>
 			{% endfor %}
-			<hr class="separator" />
 			<div class="pagination text-container">
 			    <span class="step-links">
 			        {% if page_obj.has_previous %}
