@@ -7,6 +7,7 @@
 		<div class="page" id="online">
 			<h2><a href="{% url 'blog.all' %}">ne//řád online</a></h2>
 			<hr class="separator2" />
+			<a id="zpet-btn" href="{% url 'blog.all' %}"><img src="{% static 'img/tlacitkoZPET.png' %}" class="btn"></a>
 			<article class="main text-container" id="{{ object.slug }}">
 				<h1><a href={{ object.get_absolute_url }}>{{ object.title }}</a></h1>
 				<div class="info">

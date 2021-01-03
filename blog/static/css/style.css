@@ -3,6 +3,10 @@
   /*url(../Courier New Regular.ttf) format('truetype');*/
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: 100vw;
   height: 100vh;
@@ -155,10 +159,11 @@ nav ul li {
 }
 
 a#zpet-btn {
-  top: 0;
-  right: 0;
+  top: 7.5%;
+  right: 2.5%;
   display: block;
   position: absolute;
+  width: 15%;
 }
 
 @media screen and (min-aspect-ratio: 5/4) { /*normal device */
