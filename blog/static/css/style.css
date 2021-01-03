@@ -41,6 +41,10 @@ body {
   height: 315vh;
 }
 
+.background, canvas {
+  background: rgb(17, 50, 73);
+}
+
 .background #bugs {
   width: 100%;
   height: 100%;
@@ -81,6 +85,10 @@ body {
   backdrop-filter: blur(2px);
 
   padding: 10px 20px 10px 20px;
+}
+
+.text-container iframe {
+  height: 150px;
 }
 
 .foreground .separator {
@@ -221,6 +229,13 @@ h1.section {
   margin-left: 1.25%;
   height: 75%;
 }
+
+#online .text-container {
+  width: 75%;
+  font-size: 1.4vw;
+  margin-left: 1.25%;
+}
+
 img#title {
   width: 100%;
 }

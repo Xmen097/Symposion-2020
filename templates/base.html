@@ -13,23 +13,20 @@
             var static_url = "{% get_static_prefix %}";
             var media_url = "{% get_media_prefix %}";
         </script>
-        <script src="{% static 'js/script.js' %}"></script>
 
         <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
 
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css?family=Droid+Serif" type="text/css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif" type="text/css" rel="stylesheet" />
+
+        {% block extrahead %}
+        {% endblock %}
     </head>
     <body ontouchstart="">
         <div class="wrapper">
           <div class="container">
-            <div class="background"><canvas id="bugs"></canvas><div id="stream" onclick="window.location='#intro'"></div></div>
-            <div class="foreground">
-                {% block main %}
-                {% endblock %}
-                {% block footer %}
-                {% endblock %}
-            </div>
+            {% block main %}
+            {% endblock %}
           </div>
         </div>
     </body>

@@ -2,54 +2,51 @@
 {% load static %}
 
 {% block main %}
-    <div id="intro">
-        <div id="title">
-            <img src="{% static 'img/title.png' %}" id="title">
-            Symposion GJK 2020/21
-        </div>
-    </div>
+	<div class="background"></div>
+	<div class="foreground">
+		<div class="page" id="online">
+			<h2>ne//řád online</h2>
+			<hr class="separator2" />
+			{% for obj in page_obj %}
+				{% if obj.post %}
+				    <article class="preview text-container">
+				    	<h3><a href="{{ obj.post.get_absolute_url }}">{{ obj.post.title }}</a></h3>
+				    	<div class="info">
+				    		<span class="published">{{ obj.post.published }}</span>
+				    		<span class="author">{{ obj.post.author }}</span>
+				    	</div>
+				    	{{ obj.post.html|safe|truncatechars_html:255 }}...
 
-	{% for obj in page_obj %}
-		{% if obj.post %}
-		    <article class="preview text-container">
-		    	<h2><a href="{{ obj.post.get_absolute_url }}">{{ obj.post.title }}</a></h2>
-		    	<div class="info">
-		    		<span class="published">{{ obj.post.published }}</span>
-		    		<span class="author">{{ obj.post.author }}</span>
-		    	</div>
-		    	{{ obj.post.html|safe|truncatechars_html:255 }}...
+				    	<a href="{{ obj.post.get_absolute_url }}">Číst více.</a>
+					</article>
+				{% else %}
+					<div class="text-container">
+						{{ obj.podcast.embed|safe }}
+					</div>
+				{% endif %}
+			{% empty %}
+				<div class="text-container">
+			    	<p>Ještě tu nic není, vraťte se později.</p>
+			    </div>
+			{% endfor %}
+			<hr class="separator" />
+			<div class="pagination text-container">
+			    <span class="step-links">
+			        {% if page_obj.has_previous %}
+			            <a href="?page=1">&laquo; Začátek</a>
+			            <a href="?page={{ page_obj.previous_page_number }}">Předchozí</a>
+			        {% endif %}
 
-		    	<a href="{{ obj.post.get_absolute_url }}">Číst více.</a>
-			</article>
-		{% else %}
-			<div class="text-container">
-				{{ obj.podcast.embed|safe }}
+			        <span class="current">
+			            Strana {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+			        </span>
+
+			        {% if page_obj.has_next %}
+			            <a href="?page={{ page_obj.next_page_number }}">Další</a>
+			            <a href="?page={{ page_obj.paginator.num_pages }}">Konec &raquo;</a>
+			        {% endif %}
+			    </span>
 			</div>
-		{% endif %}
-	{% empty %}
-		<div class="text-container">
-	    	<p>Ještě tu nic není, vraťte se později.</p>
-	    </div>
-	{% endfor %}
-{% endblock %}
-
-{% block footer %}
-	<hr class="separator" />
-	<div class="pagination text-container">
-	    <span class="step-links">
-	        {% if page_obj.has_previous %}
-	            <a href="?page=1">&laquo; Začátek</a>
-	            <a href="?page={{ page_obj.previous_page_number }}">Předchozí</a>
-	        {% endif %}
-
-	        <span class="current">
-	            Strana {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
-	        </span>
-
-	        {% if page_obj.has_next %}
-	            <a href="?page={{ page_obj.next_page_number }}">Další</a>
-	            <a href="?page={{ page_obj.paginator.num_pages }}">Konec &raquo;</a>
-	        {% endif %}
-	    </span>
+		</div>
 	</div>
 {% endblock %}
