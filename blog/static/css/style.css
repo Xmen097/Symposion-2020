@@ -35,6 +35,7 @@ body {
   display: flex;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .background {
