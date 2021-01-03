@@ -53,12 +53,16 @@ class Chaos_Bug {
 
         chaos_bugs.push(this);
     }
-    draw(canvas) {
+    draw(canvas, fast=false) {
         canvas.setTransform(scale, 0, 0, scale, this.x, this.y);
         canvas.rotate(this.angle);
         canvas.drawImage(this.img_ref, -this.img_ref.width / 2, -this.img_ref.height / 2);
 
+        if (!fast) {
             this.update();
+        } else {
+            this.fast_update();
+        }
     }
     update() {
         let steer = vec2();
@@ -115,6 +119,44 @@ class Chaos_Bug {
         this.velocity.x += steer.x+border_velocity.x;
         this.velocity.y += steer.y+border_velocity.y;
         
+        this.velocity = normalized(this.velocity);
+        this.velocity.x *= this.speed * scale;
+        this.velocity.y *= this.speed * scale;
+
+        this.angle = Math.atan2(this.velocity.y, this.velocity.x);
+
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+    }
+    fast_update() {
+        let steer = vec2();
+
+        let border_velocity = vec2();
+        if (extra_bug_count <= extra_bug_dying && !this.dying) {
+            border_velocity.x = Math.log(Math.max(border_repulsion_margin-this.x, this.x-(width-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.x > 0 ? 1 : -1);
+            border_velocity.y = Math.log(Math.max(border_repulsion_margin-this.y, this.y-(chaos_height-border_repulsion_margin), 0)/border_repulsion_margin+1)**4 * (border_repulsion_margin-this.y > 0 ? 1 : -1);
+        } else {
+            if (!this.dying) {
+                this.dying = true;
+                extra_bug_dying+=1;
+            } // attract to border
+            border_velocity.x = Math.sqrt(Math.max(this.x, width-this.x)) * (this.x > width-this.x ? 1 : -1);
+            border_velocity.y = Math.sqrt(chaos_height-this.y)*-1;
+            if (width+200 < this.x || this.x < -200 || this.y < -200) {
+                chaos_bugs.splice(chaos_bugs.indexOf(this), 1);
+                extra_bug_dying-=1;
+                extra_bug_count-=1;
+            }
+        }
+        if (mouse.x != null && mouse.y != null && dist(mouse, this) < this.vision) {
+            let fear_vec = normalized(vec2(mouse.x-this.x, mouse.y-this.y));
+            steer.x -= fear_vec.x * this.fear;
+            steer.y -= fear_vec.y * this.fear;
+        }
+
+        this.velocity.x += steer.x+border_velocity.x;
+        this.velocity.y += steer.y+border_velocity.y;
+
         this.velocity = normalized(this.velocity);
         this.velocity.x *= this.speed * scale;
         this.velocity.y *= this.speed * scale;
@@ -199,7 +241,7 @@ let image_ref = [bug0, bug1, bug2, bug3, bug4];
 let frames_to_stabilize = 10;
 let frames_elapsed = 0;
 let max_frame_time = 150; // replace with solid img if less than 10 frames
-let too_slow = false;
+let too_slow = 0;
 let filterStrength = 20;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
 
@@ -232,26 +274,46 @@ window.onload = function() {
 };
 
 function draw() {
-    if (too_slow)
-        return;
-
-    canvas.save();
-    canvas.fillStyle = '#00324b';
-    canvas.fillRect(0, 0, width, height);
-    chaos_bugs.forEach(bug => bug.draw(canvas));
-    stream_bugs.forEach(bug => bug.draw(canvas));
-    if (SB_spawn_timeout === 0) {
-        new Stream_Bug();
-    } else
-        SB_spawn_timeout--;
-    canvas.restore();
-    if (frames_elapsed < frames_to_stabilize) {
-    let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
-    frameTime+= (thisFrameTime - frameTime) / filterStrength;
-    lastLoop = thisLoop;
-    frames_elapsed++;
-    } else if (frameTime > max_frame_time) {
-        too_slow=true;
+    if (too_slow === 0) {
+        canvas.save();
+        canvas.fillStyle = '#00324b';
+        canvas.fillRect(0, 0, width, height);
+        chaos_bugs.forEach(bug => bug.draw(canvas));
+        stream_bugs.forEach(bug => bug.draw(canvas));
+        if (SB_spawn_timeout === 0) {
+            new Stream_Bug();
+        } else
+            SB_spawn_timeout--;
+        canvas.restore();
+        if (frames_elapsed < frames_to_stabilize) {
+            let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
+            frameTime+= (thisFrameTime - frameTime) / filterStrength;
+            lastLoop = thisLoop;
+            frames_elapsed++;
+        } else if (frameTime > max_frame_time) {
+            too_slow=1;
+            frames_elapsed = 0;
+        }
+    } else if (too_slow === 1) {
+        canvas.save();
+        canvas.fillStyle = '#00324b';
+        canvas.fillRect(0, 0, width, height);
+        chaos_bugs.forEach(bug => bug.draw(canvas, true)); // fast update
+        stream_bugs.forEach(bug => bug.draw(canvas));
+        if (SB_spawn_timeout === 0) {
+            new Stream_Bug();
+        } else
+            SB_spawn_timeout--;
+        canvas.restore();
+        if (frames_elapsed < frames_to_stabilize) {
+            let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
+            frameTime+= (thisFrameTime - frameTime) / filterStrength;
+            lastLoop = thisLoop;
+            frames_elapsed++;
+        } else if (frameTime > max_frame_time) {
+            too_slow=2;
+            frames_elapsed = 0;
+        }
     }
     window.requestAnimationFrame(draw);
 }
