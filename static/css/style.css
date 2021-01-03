@@ -3,6 +3,10 @@
   /*url(../Courier New Regular.ttf) format('truetype');*/
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: 100vw;
   height: 100vh;
@@ -31,6 +35,7 @@ body {
   display: flex;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .background {
@@ -39,6 +44,10 @@ body {
   left: 0;
   width: 100vw;
   height: 315vh;
+}
+
+.background, canvas {
+  background: rgb(17, 50, 73);
 }
 
 .background #bugs {
@@ -54,6 +63,13 @@ body {
   top: 100vh;
   cursor:pointer;
   z-index: 100;
+}
+
+.background.online {
+  height: 100%; 
+  top: 0; 
+  left: 0; 
+  position: fixed;
 }
 
 .foreground {
@@ -83,6 +99,10 @@ body {
   padding: 10px 20px 10px 20px;
 }
 
+.text-container iframe {
+  height: 150px;
+}
+
 .foreground .separator {
   margin-top: 48px;
   margin-bottom: 48px;
@@ -98,7 +118,7 @@ body {
 
 a {
   color: #fe8627;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 h1 {
@@ -118,6 +138,33 @@ h1.section {
   margin-left: auto;
   margin-right: auto;
   text-align: right;
+}
+
+nav {
+  width: 75%;
+  font-size: 1.4vw;
+  text-align: center;
+  margin-left: 1.25%;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-left: 2%;
+  text-decoration: underline;
+}
+
+a#zpet-btn {
+  top: 7.5%;
+  right: 2.5%;
+  display: block;
+  position: absolute;
+  width: 15%;
 }
 
 @media screen and (min-aspect-ratio: 5/4) { /*normal device */
@@ -167,6 +214,7 @@ h1.section {
     left: 80%;
   }
 }
+
 @media screen and (max-aspect-ratio: 5/4) { /*portrait device */
   #intro div#title {
     width: 50%;
@@ -221,6 +269,20 @@ h1.section {
   margin-left: 1.25%;
   height: 75%;
 }
+
+#online .text-container {
+  width: 75%;
+  font-size: 1.4vw;
+  margin-left: 1.25%;
+}
+
+#online .text-container p {
+  text-align: justify;
+  hyphens: auto;
+  display: block;
+  white-space: normal; 
+}
+
 img#title {
   width: 100%;
 }
@@ -231,14 +293,16 @@ img.btn {
   height: 100%;
 }
 
-
-
 iframe#gmaps {
   border-width: 3px;
   border-radius: 3px;
   border-color: #00a6fc;
   width: 100%;
   height: 90%;
+}
+
+.page h2 a {
+  color: #00a6fc;
 }
 
 .page h2 {
@@ -248,8 +312,13 @@ iframe#gmaps {
   position: relative;
   top: 2.5%;
   left: 3%;
+  margin: 0;
+  padding-bottom: 10px;
 }
 
+h1 a, h2 a, h3 a {
+  text-decoration: none;
+}
 
 @media screen and (min-aspect-ratio: 5/4) {
     /*normal device */
