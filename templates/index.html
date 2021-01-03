@@ -17,7 +17,7 @@
         </div>
         <a id="harmonogram-btn" href="#harmonogram"><img src="{% static 'img/tlacitkoHARMONOGRAM.png' %}" class="btn"> </a>
         <a id="gjk-btn" href="https://gjk.cz"><img src="{% static 'img/tlacitkoGJK.png' %}" class="btn"></a>
-        <a id="obsah-btn" href=""><img src="{% static 'img/tlacitkoWEBOBSAH.png' %}" class="btn"></a>
+        <a id="obsah-btn" href="{% url 'blog.all' %}"><img src="{% static 'img/tlacitkoWEBOBSAH.png' %}" class="btn"></a>
         <a id="kontakt-btn" href="#kontakt"><img src="{% static 'img/tlacitkoKONTAKT.png' %}" class="btn"></a>
     </div>
     <div class="page" id="harmonogram">

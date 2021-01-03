@@ -241,6 +241,10 @@ iframe#gmaps {
   height: 90%;
 }
 
+h2 a {
+  color: #00a6fc;
+}
+
 .page h2 {
   color: #00a6fc;
   font-size: 3vw;
