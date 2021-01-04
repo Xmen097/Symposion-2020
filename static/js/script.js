@@ -247,9 +247,9 @@ let image_ref = [bug0, bug1, bug2, bug3, bug4];
 let frames_per_animation = 10;
 
 //fps counter stuff
-let frames_to_stabilize = 10;
+let frames_to_stabilize = 3;
 let frames_elapsed = 0;
-let max_frame_time = 150; // replace with solid img if less than 10 frames
+let max_frame_time = 100; // maximum frame_time
 let too_slow = 0;
 let filterStrength = 20;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
@@ -310,6 +310,7 @@ function draw(f, forced=false) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
             frameTime+= (thisFrameTime - frameTime) / filterStrength;
             lastLoop = thisLoop;
+            console.log(frameTime);
             frames_elapsed++;
         } else if (frameTime > max_frame_time) {
             too_slow=1;
