@@ -419,3 +419,30 @@ h1 a, h2 a, h3 a {
     left: 73%;
   }
 }
+
+
+.btn {
+  animation-name: orangebtn;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  transition: width 0.75s;
+}
+
+
+#zpet-btn img {
+  animation: none;
+}
+
+
+.btn:hover {
+  width: 115%;
+}
+
+
+@keyframes orangebtn {
+  0% {transform: rotate(0deg);}
+  25% {transform: rotate(6deg);}
+  50% {transform: rotate(-6deg);}
+  75% {transform: rotate(3deg);}
+  100% {transform: rotate(0deg);}
+}
