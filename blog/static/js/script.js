@@ -247,17 +247,17 @@ let image_ref = [bug0, bug1, bug2, bug3, bug4];
 let frames_per_animation = 30;
 
 //fps counter stuff
-let max_stabilization_frames = 15;
+let max_stabilization_frames = 20;
 let stabilization_frames = 0;
-let stabilization = 20;
+let stabilization = 15;
 let stabilization_threshold = 3;
 let stabilization_failed = 0;
 let frames_elapsed = 0;
-let max_frame_time = 200; // maximum frame_time
+let max_frame_time = 100; // maximum frame_time
 let too_slow = 0;
-let filterStrength = 5;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
 
+let one_shot=true;
 
 window.onload = function() {
     bug0[0].src = static_url + 'img/bg/hnusak1.png';
@@ -313,15 +313,18 @@ function draw(f, forced=false) {
         if (stabilization_failed < stabilization_threshold && stabilization_frames < max_stabilization_frames) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
             let deltaFrame = frameTime - thisFrameTime;
-            frameTime+= (thisFrameTime - frameTime) / filterStrength;
+            frameTime = thisFrameTime;
             lastLoop = thisLoop;
             stabilization_frames++;
-            if (deltaFrame < stabilization_threshold)
+            if (deltaFrame < stabilization)
                 stabilization_failed++;
         } else if (frameTime > max_frame_time) {
             too_slow=1;
-            console.log(frameTime+" "+stabilization_failed+" "+stabilization_frames)
+            alert(frameTime+" "+stabilization_failed+" "+stabilization_frames)
             stabilization_failed = 0;
+        } else if(one_shot){
+            one_shot=false
+            alert(frameTime)
         }
     } else if (too_slow === 1 || forced) {
         canvas.save();
@@ -337,7 +340,7 @@ function draw(f, forced=false) {
         if (stabilization_failed < stabilization_threshold && stabilization_frames < max_stabilization_frames) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
             let deltaFrame = frameTime - thisFrameTime;
-            frameTime+= (thisFrameTime - frameTime) / filterStrength;
+            frameTime = thisFrameTime;
             lastLoop = thisLoop;
             stabilization_frames++;
             if (deltaFrame < stabilization_threshold)
