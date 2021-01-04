@@ -244,12 +244,16 @@ let extra_bug_count = 0;
 let extra_bug_dying = 0;
 
 let image_ref = [bug0, bug1, bug2, bug3, bug4];
-let frames_per_animation = 10;
+let frames_per_animation = 30;
 
 //fps counter stuff
-let frames_to_stabilize = 5;
+let max_stabilization_frames = 15;
+let stabilization_frames = 0;
+let stabilization = 20;
+let stabilization_threshold = 3;
+let stabilization_failed = 0;
 let frames_elapsed = 0;
-let max_frame_time = 500; // maximum frame_time
+let max_frame_time = 200; // maximum frame_time
 let too_slow = 0;
 let filterStrength = 5;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
@@ -306,17 +310,20 @@ function draw(f, forced=false) {
         } else
             SB_spawn_timeout--;
         canvas.restore();
-        if (frames_elapsed < frames_to_stabilize) {
+        if (stabilization_failed < stabilization_threshold && stabilization_frames < max_stabilization_frames) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
+            let deltaFrame = frameTime - thisFrameTime;
             frameTime+= (thisFrameTime - frameTime) / filterStrength;
             lastLoop = thisLoop;
-            frames_elapsed++;
+            stabilization_frames++;
+            if (deltaFrame < stabilization_threshold)
+                stabilization_failed++;
         } else if (frameTime > max_frame_time) {
             too_slow=1;
-            frames_elapsed = 0;
+            //console.log(frameTime+" "+stabilization_failed+" "+stabilization_frames)
+            stabilization_failed = 0;
         }
     } else if (too_slow === 1 || forced) {
-        console.log(forced);
         canvas.save();
         canvas.fillStyle = '#00324b';
         canvas.fillRect(0, 0, width, height);
@@ -327,11 +334,14 @@ function draw(f, forced=false) {
         } else
             SB_spawn_timeout--;
         canvas.restore();
-        if (frames_elapsed < frames_to_stabilize) {
+        if (stabilization_failed < stabilization_threshold && stabilization_frames < max_stabilization_frames) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
+            let deltaFrame = frameTime - thisFrameTime;
             frameTime+= (thisFrameTime - frameTime) / filterStrength;
             lastLoop = thisLoop;
-            frames_elapsed++;
+            stabilization_frames++;
+            if (deltaFrame < stabilization_threshold)
+                stabilization_failed++;
         } else if (frameTime > max_frame_time) {
             too_slow=2;
             frames_elapsed = 0;
