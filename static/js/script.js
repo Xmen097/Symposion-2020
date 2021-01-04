@@ -249,7 +249,7 @@ let frames_per_animation = 30;
 //fps counter stuff
 let max_stabilization_frames = 20;
 let stabilization_frames = 0;
-let stabilization = 15;
+let stabilization = 20;
 let stabilization_threshold = 3;
 let stabilization_failed = 0;
 let frames_elapsed = 0;
@@ -316,7 +316,7 @@ function draw(f, forced=false) {
             frameTime+= (thisFrameTime - frameTime) / filterStrength;
             lastLoop = thisLoop;
             stabilization_frames++;
-            if (deltaFrame < stabilization_threshold)
+            if (deltaFrame < stabilization)
                 stabilization_failed++;
         } else if (frameTime > max_frame_time) {
             too_slow=1;
