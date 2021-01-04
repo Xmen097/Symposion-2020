@@ -40,7 +40,7 @@ class Chaos_Bug {
         this.y = typeof y !== 'undefined' ? y : random(0, chaos_height);
         this.type = typeof type !== 'undefined' ? type : random(0, 4);
         this.img_ref = image_ref[this.type];
-        this.currect_animation_frame = 0;
+        this.currect_animation_frame = random(0, frames_per_animation);
         this.angle = typeof angle !== 'undefined' ? angle : random(0, 2*Math.PI*1000)/1000;
 
         this.speed = random(7, 11)/10.0;
