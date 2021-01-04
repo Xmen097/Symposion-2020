@@ -250,12 +250,11 @@ let frames_per_animation = 30;
 let max_stabilization_frames = 20;
 let stabilization_frames = 0;
 let stabilization = 15;
-let stabilization_threshold = 6;
+let stabilization_threshold = 3;
 let stabilization_failed = 0;
 let frames_elapsed = 0;
 let max_frame_time = 100; // maximum frame_time
 let too_slow = 0;
-let filterStrength = 5;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
 
 let one_shot=true;
@@ -314,7 +313,7 @@ function draw(f, forced=false) {
         if (stabilization_failed < stabilization_threshold && stabilization_frames < max_stabilization_frames) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
             let deltaFrame = frameTime - thisFrameTime;
-            frameTime+= (thisFrameTime - frameTime) / filterStrength;
+            frameTime = thisFrameTime;
             lastLoop = thisLoop;
             stabilization_frames++;
             if (deltaFrame < stabilization)
@@ -341,7 +340,7 @@ function draw(f, forced=false) {
         if (stabilization_failed < stabilization_threshold && stabilization_frames < max_stabilization_frames) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
             let deltaFrame = frameTime - thisFrameTime;
-            frameTime+= (thisFrameTime - frameTime) / filterStrength;
+            frameTime = thisFrameTime;
             lastLoop = thisLoop;
             stabilization_frames++;
             if (deltaFrame < stabilization_threshold)
