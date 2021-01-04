@@ -257,7 +257,6 @@ let max_frame_time = 100; // maximum frame_time
 let too_slow = 0;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
 
-let one_shot=true;
 
 window.onload = function() {
     bug0[0].src = static_url + 'img/bg/hnusak1.png';
@@ -320,11 +319,9 @@ function draw(f, forced=false) {
                 stabilization_failed++;
         } else if (frameTime > max_frame_time) {
             too_slow=1;
-            alert(frameTime+" "+stabilization_failed+" "+stabilization_frames)
             stabilization_failed = 0;
-        } else if(one_shot){
-            one_shot=false
-            alert(frameTime)
+            stabilization_frames=0;
+        } else {
         }
     } else if (too_slow === 1 || forced) {
         canvas.save();
