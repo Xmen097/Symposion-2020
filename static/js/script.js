@@ -258,6 +258,7 @@ let too_slow = 0;
 let filterStrength = 5;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
 
+let one_shot=true;
 
 window.onload = function() {
     bug0[0].src = static_url + 'img/bg/hnusak1.png';
@@ -322,7 +323,8 @@ function draw(f, forced=false) {
             too_slow=1;
             alert(frameTime+" "+stabilization_failed+" "+stabilization_frames)
             stabilization_failed = 0;
-        } else {
+        } else if(one_shot){
+            one_shot=false
             alert(frameTime)
         }
     } else if (too_slow === 1 || forced) {
