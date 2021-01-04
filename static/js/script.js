@@ -313,7 +313,6 @@ function draw(f, forced=false) {
             frames_elapsed++;
         } else if (frameTime > max_frame_time) {
             too_slow=1;
-            alert(frameTime);
             frames_elapsed = 0;
         }
     } else if (too_slow === 1 || forced) {
