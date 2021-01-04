@@ -249,9 +249,9 @@ let frames_per_animation = 10;
 //fps counter stuff
 let frames_to_stabilize = 3;
 let frames_elapsed = 0;
-let max_frame_time = 100; // maximum frame_time
+let max_frame_time = 300; // maximum frame_time
 let too_slow = 0;
-let filterStrength = 20;
+let filterStrength = 5;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
 
 
@@ -285,8 +285,8 @@ window.onload = function() {
     for (let y=chaos_height; y<height+100; y-=SB_spawn_cooldown*SB_speed)
         new Stream_Bug(y);
     draw();
-    if (mobile())
-        too_slow = 2;
+    //if (mobile())
+    //    too_slow = 2;
 
     window.addEventListener('mousemove', function(evt) {
         let rect = canvas_element.getBoundingClientRect();
@@ -310,10 +310,10 @@ function draw(f, forced=false) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
             frameTime+= (thisFrameTime - frameTime) / filterStrength;
             lastLoop = thisLoop;
-            console.log(frameTime);
             frames_elapsed++;
         } else if (frameTime > max_frame_time) {
             too_slow=1;
+            alert(frameTime);
             frames_elapsed = 0;
         }
     } else if (too_slow === 1 || forced) {
