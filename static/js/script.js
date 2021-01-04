@@ -247,9 +247,9 @@ let image_ref = [bug0, bug1, bug2, bug3, bug4];
 let frames_per_animation = 10;
 
 //fps counter stuff
-let frames_to_stabilize = 3;
+let frames_to_stabilize = 5;
 let frames_elapsed = 0;
-let max_frame_time = 300; // maximum frame_time
+let max_frame_time = 500; // maximum frame_time
 let too_slow = 0;
 let filterStrength = 5;
 let frameTime = 0, lastLoop = Date.now(), thisLoop;
