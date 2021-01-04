@@ -250,7 +250,7 @@ let frames_per_animation = 30;
 let max_stabilization_frames = 20;
 let stabilization_frames = 0;
 let stabilization = 20;
-let stabilization_threshold = 3;
+let stabilization_threshold = 6;
 let stabilization_failed = 0;
 let frames_elapsed = 0;
 let max_frame_time = 100; // maximum frame_time
@@ -320,7 +320,7 @@ function draw(f, forced=false) {
                 stabilization_failed++;
         } else if (frameTime > max_frame_time) {
             too_slow=1;
-            //console.log(frameTime+" "+stabilization_failed+" "+stabilization_frames)
+            console.log(frameTime+" "+stabilization_failed+" "+stabilization_frames)
             stabilization_failed = 0;
         }
     } else if (too_slow === 1 || forced) {
