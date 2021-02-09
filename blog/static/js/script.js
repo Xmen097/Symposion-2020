@@ -193,13 +193,13 @@ class Stream_Bug {
         stream_bugs.push(this);
     }
     draw(canvas) {
+        let img1 = this.img_ref1[Math.floor(this.currect_animation_frame/frames_per_animation)%this.img_ref1.length];
         canvas.setTransform(scale, 0, 0, scale, width-75, this.y);
         canvas.rotate(this.angle);
-        let img1 = this.img_ref1[Math.floor(this.currect_animation_frame/frames_per_animation)%this.img_ref1.length];
         canvas.drawImage(img1, -img1.width / 2, -img1.height / 2);
-        canvas.setTransform(scale, 0, 0, scale, width-200, this.y);
-        canvas.rotate(this.angle);
         let img2 = this.img_ref2[Math.floor(this.currect_animation_frame/frames_per_animation)%this.img_ref2.length];
+        canvas.setTransform(scale, 0, 0, scale, width-img1.width*1.25*scale, this.y);
+        canvas.rotate(this.angle);
         canvas.drawImage(img2, -img2.width / 2, -img2.height / 2);
 
         this.currect_animation_frame++;
