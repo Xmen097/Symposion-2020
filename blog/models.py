@@ -55,3 +55,16 @@ class Podcast(Content):
     class Meta:
         verbose_name = "Podcast"
         verbose_name_plural = "Podcasty"
+
+
+class Setting(models.Model):
+    name = models.CharField(max_length=256, verbose_name="Jméno k zobrazení")
+    key = models.CharField(max_length=256, verbose_name="Klíč", unique=True)
+    value = models.TextField(verbose_name="Hodnota", blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Nastavení"
+        verbose_name_plural = "Nastavení"
