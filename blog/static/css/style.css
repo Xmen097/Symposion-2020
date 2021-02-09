@@ -43,7 +43,7 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 315vh;
+  height: 420vh;
 }
 
 .background, canvas {
@@ -130,7 +130,7 @@ h1.section {
 
 .page {
   width:100%;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 }
 #intro div#title {
@@ -268,6 +268,23 @@ a#zpet-btn {
   text-align: center;
   margin-left: 1.25%;
   height: 75%;
+}
+
+#info .text-container {
+  width: 75%;
+  font-size: 1.4vw;
+  text-align: center;
+  margin-left: 1.25%;
+  height: 75%;
+}
+div#info-text {
+  width: 60%;
+  height: 30%;
+  margin-top: 5%;
+  margin-left: 7%;
+  margin-bottom: 5%;
+  color: #00a6fc;
+  font-size: 16px;
 }
 
 #online .text-container {
