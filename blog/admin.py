@@ -39,3 +39,4 @@ class PodcastAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Podcast, PodcastAdmin)
+admin.site.register(models.Setting)
