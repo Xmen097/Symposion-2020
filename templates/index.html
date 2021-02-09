@@ -7,12 +7,12 @@
 {% endblock %}
 
 {% block main %}
-    <div class="background"><canvas id="bugs"></canvas><div id="stream" onclick="window.location='#intro'"></div></div>
+    <div class="background" style="height: {% config 'bgheight' %};"><canvas id="bugs"></canvas><div id="stream" onclick="window.location='#intro'"></div></div>
     <div class="foreground">
         <div class="page" id="intro">
             <div id="title">
                 <img src="{% static 'img/title.png' %}" id="title">
-                Symposion GJK 2020/21
+                {% config 'symposionheading' %}{% comment %}Symposion GJK 2020/21{% endcomment %}
             </div>
             <div class="text-container">
                 {% config 'introtext' %}
@@ -29,8 +29,10 @@
             <a id="kontakt-btn" href="#kontakt"><img src="{% static 'img/tlacitkoKONTAKT.png' %}" class="btn"></a>
         </div>
         <div class="page" id="info">
-            <h2> ne//řád informace </h2>
+            <h2> {% config 'infoheading' %}{% comment %}ne//řád informace {% endcomment %}</h2>
             <div id="info-text">
+                {% config 'infotext' %}
+                {% comment %}
                 <p>Chtěli byste ve svém životě konečně zažít něco spontánního a neotřelého? My vás z letargie probudíme! Chtěli bychom vás srdečně pozvat na 22. ročník našeho přednáškového fóra Symposion, pořádaného u příležitosti Dne studentstva. Abychom vás uchránili před jednotvárností a dostáli tak svému slibu, sezvali jsme na letošní ročník ty nejzajímavější a nejrůznorodější kapacity z Prahy i celé České a Slovenské republiky. Přijít může kdokoliv, není třeba se nikde předem registrovat a teď to nejlepší - vstup je zdarma. Přijďte se s námi vytrhnout z každodenní nudy 15. až 17. listopadu 2018.</p>
                 <p>Jeho cílem je zprostředkovat návštěvníkům setkání s významnými českými i slovenskými vědci, umělci a zajímavými osobnostmi z všemožných dalších odvětví. Oni nás zasvětí do problematiky témat, o kterých si myslíme, že víme vše, stejně jako do tajů divokých a nekonvenčních záležitostí, o nichž bychom normálně ani nediskutovali. </p>
                 <p>Na putování vás bude doprovázet program sestávající např. z koncertu či filmové noci.</p>
@@ -39,14 +41,15 @@
                 <p>Chceme tu vidět co nejvíce tříd i druhů lidí, uvítáme zde děti i zvěř, dokonce pro ně máme zvlášť uzpůsobené výběhy.<p>
                 <p>Pokud máte zájem na bezpečném místě odložit svá rozdivočená mláďata, můžete je od začátku do konce přednášek zanechat v našem dětském koutku, kde se vyřádí mezi spoustou stolních her, hraček, pastelek a podobných únavu navozujících činností.</p>
                 <p>P.S.: Pro informace o aktuálním dění nezapomeňte sledovat naši facebookovou stránku.</p>
+                {% endcomment %}
             </div>
         </div>
         <div class="page" id="harmonogram">
-            <h2> ne//řád harmonogram </h2>
-            <div class="text-container"> Harmonogram se připravuje</div>
+            <h2> {% config 'harmonogramheading' %}{% comment %}ne//řád harmonogram{% endcomment %} </h2>
+            <div class="text-container"> {% config 'harmonogramtext' %}{% comment %}Harmonogram se připravuje{% endcomment %}</div>
         </div>
         <div class="page" id="kontakt">
-            <h2> ne//řád kontakt </h2>
+            <h2> {% config 'contacttext' %}{% comment %}ne//řád kontakt {% endcomment %}</h2>
             <div id="kontakt-text">{% config 'contacttext' %}{% comment %}Brouka vám do hlavy nasadíme na Gymnáziu Jana Keplera s řádnou adresou Parléřova 2. Ještě než proklouznete do budovy školy, přisajte se na naše sociální sítě a naslouchejte nespoutaný slovům. A kdybyste se cítili sami uprostřed všeobecného chaosu, napište nám na mail.{% endcomment %}</div>
             <div id="gmaps"><iframe id="gmaps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.91428932703!2d14.385109315786583!3d50.08789157942699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b951a87784a87%3A0x7cc9fd475f7b8166!2sGymn%C3%A1zium%20Jana%20Keplera!5e0!3m2!1scs!2scz!4v1609597010791!5m2!1scs!2scz" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
              Gymnázium Jana Keplera
