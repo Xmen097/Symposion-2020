@@ -2,8 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.urls import reverse
-import bleach
+from django.core.files.base import ContentFile
+from django_summernote.models import Attachment
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 import markdown
+import requests
+import os
+import re
 
 
 class Content(models.Model):
@@ -24,7 +30,27 @@ class Post(Content):
 
     def save(self, *args, **kwargs):
         if self.content and not self.markdown:
-            self.content = bleach.clean(self.content, strip=True, tags=["b", "i", "p", "u", "img", "video", "ul", "ol", "li", "blockquote", "q"])
+            soup = BeautifulSoup(self.content, "html.parser")
+            for tag in soup.select("*"):
+                if tag.get("style"):
+                    tag["style"] = re.sub(r"font-?\w*:\s*.*?;", "", tag["style"])
+            for tag in soup.find_all("img"):
+                url = tag.get("src")
+                if url and not url.startswith("/"):
+                    try:
+                        res = requests.get(url)
+                        if res.ok:
+                            att = Attachment(name=os.path.basename(urlparse(url).path)[:50].replace("/", ""))
+                            att.file.save(att.name[:20], ContentFile(res.content))
+                            att.save()
+                            tag["src"] = att.file.url
+                    except requests.exceptions.RequestException:
+                        pass
+
+                if tag.get("style"):
+                    tag["style"] = re.sub(r"margin-?\w*:\s*.*?;", "", tag["style"])
+
+            self.content = str(soup)
         self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
 
