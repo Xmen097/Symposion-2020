@@ -43,7 +43,7 @@ class Chaos_Bug {
         this.currect_animation_frame = random(0, frames_per_animation);
         this.angle = typeof angle !== 'undefined' ? angle : random(0, 2*Math.PI*1000)/1000;
 
-        this.speed = random(7, 11)/10.0;
+        this.speed = random(7, 11)/15.0;
         this.velocity = vec2(this.speed*Math.cos(this.angle), this.speed*Math.sin(this.angle));
 
         this.vision = 200;
@@ -235,7 +235,7 @@ let bug3 = [new Image(), new Image()];
 let bug4 = [new Image(), new Image(), new Image()];
 
 let border_repulsion_margin;
-let bug_density = 5;
+let bug_density = 3;
 let scale;
 let scaling_factor = 3;
 let lin_scaling_factor = 50;
