@@ -48,7 +48,7 @@ class Chaos_Bug {
 
         this.vision = 200;
         this.separation = 0.001;
-        this.alignment = 0.02;
+        this.alignment = 0.05;
         this.cohesion = 0.0005;
         this.fear = 1;
 
@@ -209,7 +209,8 @@ class Stream_Bug {
         this.y += SB_speed * scale;
         if (this.y < chaos_height) {
             let bug1 = new Chaos_Bug(width-75, this.y, this.type1, this.angle);
-            let bug2 = new Chaos_Bug(width-200, this.y, this.type2, this.angle);
+            let img1 = this.img_ref1[Math.floor(this.currect_animation_frame/frames_per_animation)%this.img_ref1.length];
+            let bug2 = new Chaos_Bug(width-img1.width*1.25*scale, this.y, this.type2, this.angle);
             bug1.draw(canvas);
             bug2.draw(canvas);
             extra_bug_count += 2;
@@ -285,11 +286,12 @@ window.onload = function() {
     max_bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
     for (let a=0; a<max_bug_count; a++)
         new Chaos_Bug();
-    for (let y=chaos_height; y<height+100; y-=SB_spawn_cooldown*SB_speed)
-        new Stream_Bug(y);
+    if (!mobile())
+        for (let y=chaos_height; y<height+100; y-=SB_spawn_cooldown*SB_speed)
+            new Stream_Bug(y);
     draw();
-    //if (mobile())
-    //    too_slow = 2;
+    if (mobile())
+        too_slow = 2;
 
     window.addEventListener('mousemove', function(evt) {
         let rect = canvas_element.getBoundingClientRect();
@@ -366,5 +368,7 @@ window.onresize = function() {
     chaos_bugs = [];
     for (let a=0; a<max_bug_count; a++)
         new Chaos_Bug();
-    draw(0, true)
+    draw(0, true);
+    document.getElementsByClassName('background')[0].style.height=document.getElementsByClassName('foreground')[0].clientHeight+'px';
+    document.getElementById('stream').style.height=document.getElementsByClassName('foreground')[0].clientHeight-window.innerHeight+'px';
 };
