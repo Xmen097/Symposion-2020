@@ -289,9 +289,9 @@ window.onload = function() {
     if (!mobile())
         for (let y=chaos_height; y<height+100; y-=SB_spawn_cooldown*SB_speed)
             new Stream_Bug(y);
+    draw();
     if (mobile())
         too_slow = 2;
-    draw();
 
     window.addEventListener('mousemove', function(evt) {
         let rect = canvas_element.getBoundingClientRect();
