@@ -289,9 +289,9 @@ window.onload = function() {
     if (!mobile())
         for (let y=chaos_height; y<height+100; y-=SB_spawn_cooldown*SB_speed)
             new Stream_Bug(y);
-    draw();
     if (mobile())
         too_slow = 2;
+    draw();
 
     window.addEventListener('mousemove', function(evt) {
         let rect = canvas_element.getBoundingClientRect();
@@ -330,11 +330,15 @@ function draw(f, forced=false) {
         canvas.fillStyle = '#00324b';
         canvas.fillRect(0, 0, width, height);
         chaos_bugs.forEach(bug => bug.draw(canvas, true)); // fast update
-        stream_bugs.forEach(bug => bug.draw(canvas));
-        if (SB_spawn_timeout === 0) {
-            new Stream_Bug();
-        } else
-            SB_spawn_timeout--;
+        if (!mobile())
+            stream_bugs.forEach(bug => bug.draw(canvas));
+
+        if (!mobile()) {
+            if (SB_spawn_timeout === 0) {
+                new Stream_Bug();
+            } else
+                SB_spawn_timeout--;
+        }
         canvas.restore();
         if (stabilization_failed < stabilization_threshold && stabilization_frames < max_stabilization_frames) {
             let thisFrameTime = (thisLoop=Date.now()) - lastLoop;
