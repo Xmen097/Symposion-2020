@@ -321,6 +321,9 @@ iframe#gmaps {
 .page h2 a {
   color: #00a6fc;
 }
+li {
+  text-align: initial;
+}
 
 .page h2 {
   color: #00a6fc;
