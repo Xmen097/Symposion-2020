@@ -3,12 +3,13 @@
 {% load blog_utils %}
 
 {% block extrahead %}
-    <script src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript" src="https://unpkg.com/glsl-canvas-js/dist/umd/glsl-canvas.min.js"></script>
+    <script src="{% static 'js/glbeetle.js' %}"></script>
     {% config 'extrahead' %}
 {% endblock %}
 
 {% block main %}
-    <div class="background"><canvas id="bugs"></canvas><div id="stream" onclick="window.location='#intro'"></div></div>
+    <div class="background"><canvas id="bugs" data-textures="{% static 'img/bg/chroust1.png' %}" data-fragment-url="{% static 'beetles.frag' %}"></canvas><div id="stream" onclick="window.location='#intro'"></div></div>
     <div class="foreground">
         <div class="page" id="intro">
             <div id="title">
