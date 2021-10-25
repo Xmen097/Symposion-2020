@@ -31,11 +31,9 @@ void main() {
 	vec2 uv = vec2(gl_FragCoord.x, gl_FragCoord.y)/u_resolution;
 	uv.y *= u_resolution.y/u_resolution.x;
 
-	//color = texture2D(u_tex[0], uv);
-
 	for (int i = 0; i < BUG_COUNT; i++) {
 		if (distance(uv, pos(i)) < 0.01) {
-			color = vec4(1., 0., 0., 1.);
+			color = vec4(1., 0., 0., 1.);//texture2D(u_tex[0], pos(i)-uv);
 		}
 	}
 
