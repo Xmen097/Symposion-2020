@@ -447,6 +447,10 @@ h1 a, h2 a, h3 a {
   animation-duration: 4s;
   animation-iteration-count: infinite;
   transition: width 0.75s;
+  
+  translate: rotateZ(360deg);
+  backface-visibility: hidden;
+  perspective: 1000;
 }
 
 
