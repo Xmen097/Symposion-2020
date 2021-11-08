@@ -9,4 +9,6 @@ urlpatterns = [
 	path('blog/podcasts/', views.PodcastList.as_view(), name="blog.podcasts"),
 	path('blog/post/<int:year>/<int:month>/<slug:slug>/', views.PostDetail.as_view(), name="blog.post"),
 	path('blog/draft/<slug:slug>/', views.DraftDetail.as_view(), name="blog.draft"),
+
+	path('it/', TemplateView.as_view(template_name="redirect.html"), name="it"),
 ]
