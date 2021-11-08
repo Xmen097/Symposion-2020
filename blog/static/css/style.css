@@ -538,6 +538,17 @@ h1 a, h2 a, h3 a {
   .harmonogram_day {
     margin: 1.5rem auto;
   }
+  .harmonogram_table_body th {
+    font-size: 1.5vh;
+  }
+  body table#harmonogram_table td {
+    height: 11vh;
+    max-height: 11vh;
+  }
+  body .spanila_princezna {
+    line-height: 1.5vh;
+    font-size: 1.5vh;
+  }
 
   #harmonogram_table {
     margin: 0 auto;

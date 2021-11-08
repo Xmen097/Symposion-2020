@@ -197,7 +197,7 @@
                                         };
                                         cell.style = "cursor: pointer";
                                         if (res[0] === "VEČEŘE" || res[0] === "OBĚD") {
-                                            if (food_set) return
+                                            if (food_set) return;
                                             if (!mobile) cell.style.height = "1.2rem";
                                             if (!mobile) cell.colSpan = rooms.length;
                                             food_set = true;
