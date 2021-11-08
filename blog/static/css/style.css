@@ -13,6 +13,7 @@ body {
   overflow: hidden;
   margin: 0;
   font-family: "Courier New";
+  background: rgb(17, 50, 73);
 }
 
 .wrapper {
@@ -83,6 +84,11 @@ body {
   margin-left: 5vw;
   background: rgb(17, 50, 73);
 }
+
+.overlay-body > div {
+  max-width: 80%;
+}
+
 .overlay-author {
   padding-top: 2.5vh;
   padding-left: 1vw;
