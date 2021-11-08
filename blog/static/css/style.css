@@ -563,6 +563,9 @@ h1 a, h2 a, h3 a {
     display: block;
     width: 94% !important;
   }
+.overlay-anotace, .overlay-medailonek {
+  font-size: 1.8vh;
+}
 }
 
 
