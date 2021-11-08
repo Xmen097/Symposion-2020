@@ -51,8 +51,37 @@
         <div class="page" id="harmonogram">
             <h2> {% config 'harmonogramheading' %}{% comment %}ne//řád harmonogram{% endcomment %} </h2>
             <div class="text-container" style="padding-left: 0"> {% config 'harmonogramtext' %}
+                <div class="harmonogram_day">Pondělí</div>
                 <table id="harmonogram_table">
-                    <tbody id="harmonogram_table_body">
+                    <tbody class="harmonogram_table_body">
+                    <tr class="harmonogram_rooms">
+                        <th></th>
+                        <th><span class=".spanila_princezna">Aula</span></th>
+                        <th><span class=".spanila_princezna">USV</span></th>
+                        <th><span class=".spanila_princezna">Sborovna</span></th>
+                        <th><span class=".spanila_princezna">P2.3</span></th>
+                        <th><span class=".spanila_princezna">P2.2</span></th>
+                        <th><span class=".spanila_princezna">Tělocvična</span></th>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="harmonogram_day">Úterý</div>
+                <table id="harmonogram_table">
+                    <tbody class="harmonogram_table_body">
+                    <tr>
+                        <th></th>
+                        <th>Aula</th>
+                        <th>USV</th>
+                        <th>Sborovna</th>
+                        <th>P2.3</th>
+                        <th>P2.2</th>
+                        <th>Tělocvična</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="harmonogram_day">Středa</div>
+                <table id="harmonogram_table">
+                    <tbody class="harmonogram_table_body">
                     <tr>
                         <th></th>
                         <th>Aula</th>
@@ -65,18 +94,17 @@
                     </tbody>
                 </table>
                 <style>
-                    #harmonogram_table_body {
+                    .harmonogram_table_body {
                         display: block;
                     }
                     table#harmonogram_table td {
-                        height: 10rem;
-                        max-height: 10rem;
+                        height: 8rem;
+                        max-height: 8rem;
                         border: 4px solid #00a6fc;
                         overflow: hidden;
+                        width: 14%;
                     }
                     table#harmonogram_table {
-                        height: 100vh;
-                        max-height: 100vh;
                         table-layout: fixed;
                         border-collapse: collapse;
                     }
@@ -84,8 +112,9 @@
                         height: initial !important;
                     }
                     .spanila_princezna {
-                        height: 100%;
-                        width: 100%;
+                        margin: 6%;
+                        height: 88%;
+                        width: 88%;
                         line-height: 1rem;
                         overflow: hidden;
                         display: block;
@@ -130,6 +159,12 @@
                         return found;
                     }
 
+                    function getDay(time) {
+                        if (time[0] === "P" && time[1] === "O") return 0;
+                        if (time[0] === "Ú" && time[1] === "T") return 1;
+                        if (time[0] === "S" && time[1] === "T") return 2;
+                    }
+
                     function zpetButton() {
                         document.getElementById("overlay").style.display = "none";
                     }
@@ -138,21 +173,23 @@
 
                     var rooms = ["Aula", "USV", "Sborovna", "P2.3", "P2.2", "Tělocvična"];
                     var times = ["PO 15:30 - 16:00", "PO 16:00 - 18:00",  "PO 18:00 - 18:45", "PO 18:45 - 19:30", "PO 19:30 - 21:00", "ÚT 09:00 - 11:00", "ÚT 11:00 - 13:00", "ÚT 13:00 - 14:00", "ÚT 14:00 - 16:00", "ÚT 16:00 - 18:00", "ÚT 18:00 - 20:00", "ÚT 19:30 - 20:30", "ÚT 20:30 - 22:00", "ST 9:00 - 11:00", "ST 11:00 - 13:00", "ST 13:00 - 14:00", "ST 14:00 - 16:00"];
-                    var alt_times = ["15:30", "16:00",  "18:00", "18:45 - 19:30", "19:30", "09:00", "11:00", "14:00", "16:00", "18:00", "19:30 - 20:30", "20:30", "9:00", "11:00", "13:00 - 14:00", "14:00"];
+                    var alt_times = ["15:30", "16:00",  "18:00", "18:45 - 19:30", "19:30", "09:00", "11:00", "13:00 - 14:00", "14:00", "16:00", "18:00", "19:30 - 20:30", "20:30", "9:00", "11:00", "13:00 - 14:00", "14:00"];
 
                     fetch("https://docs.google.com/spreadsheets/u/1/d/1JUHpxEMKoJotb-z4X3H2PDgBUywQKet2KE4cTIuGDqI/gviz/tq?tqx=out:csv&tq&gid=0",
                         {'method': 'GET',  'headers': {'Content-Type': 'text/csv'}, 'mode': 'cors'})
                         .then(response => response.text())
                         .then(data => {
                             data_arr = CSVToArray(data);
-                            var table = document.getElementById("harmonogram_table_body");
+                            var tables = document.getElementsByClassName("harmonogram_table_body");
                             times.forEach((time, time_index) => {
                                 var row = document.createElement("tr");
                                 var header = document.createElement("th");
                                 header.style.width = "80px";
                                 header.innerText = alt_times[time_index];
                                 row.appendChild(header);
-                                table.appendChild(row);
+                                var day = getDay(time);
+                                tables[day].appendChild(row);
+                                var food_set = false;
                                 rooms.forEach((room) => {
                                     var cell = document.createElement("td");
                                     var res = find(data_arr, room, time);
@@ -161,6 +198,12 @@
                                           display_anotate(data_arr.indexOf(res));
                                         };
                                         cell.style = "cursor: pointer";
+                                        if (res[0] === "VEČEŘE" || res[0] === "OBĚD") {
+                                            if (food_set) return;
+                                            cell.style.height = "1.2rem";
+                                            cell.colSpan = rooms.length;
+                                            food_set = true;
+                                        }
                                         cell.innerHTML = "<b>"+res[0]+"</b>";
                                         if (typeof res[3] != "undefined") {
                                             cell.innerHTML += ": "+res[3]+""
@@ -171,7 +214,7 @@
                                     cell.innerHTML = "<span class='spanila_princezna'>" + cell.innerHTML + "</span>";
 
                                     $clamp(cell.getElementsByClassName('spanila_princezna')[0], {
-                                      clamp: 10
+                                      clamp: 7
                                     });
                                     row.appendChild(cell);
                                 })

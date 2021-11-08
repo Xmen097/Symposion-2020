@@ -46,6 +46,19 @@ body {
   height: calc(331vh + 130rem);
 }
 
+.harmonogram_rooms th {
+  height: 2rem;
+}
+.harmonogram_day {
+  width: 70%;
+  margin-left: 20%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 4rem;
+  text-align: center;
+  border-bottom: 4px solid #00a6fc;
+}
+
 #overlay {
   z-index: 5000;
   height: 100vh;
@@ -82,6 +95,7 @@ body {
   padding-top: 3vh;
   padding-left: 3vw;
   font-size: 1.5rem;
+  min-height: 1.5rem;
   color: #00a6fc;
   text-align: left;
   width: 80%;
