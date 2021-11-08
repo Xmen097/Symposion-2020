@@ -50,7 +50,7 @@
         </div>
         <div class="page" id="harmonogram">
             <h2> {% config 'harmonogramheading' %}{% comment %}ne//řád harmonogram{% endcomment %} </h2>
-            <div class="text-container"> {% config 'harmonogramtext' %}
+            <div class="text-container" style="padding-left: 0"> {% config 'harmonogramtext' %}
                 <table id="harmonogram_table">
                     <tbody id="harmonogram_table_body">
                     <tr>
@@ -131,15 +131,14 @@
                     }
 
                     function zpetButton() {
-                        console.log("vole");
                         document.getElementById("overlay").style.display = "none";
                     }
 
                     var data_arr;
 
                     var rooms = ["Aula", "USV", "Sborovna", "P2.3", "P2.2", "Tělocvična"];
-                    var times = ["PO 15:30 - 16:00", "PO 16:00 - 18:00",  "PO 18:00 - 18:45", "PO 19:30 - 21:00", "ÚT 09:00 - 11:00", "ÚT 11:00 - 13:00", "ÚT 14:00 - 16:00", "ÚT 16:00 - 18:00", "ÚT 18:00 - 20:00", "ÚT 20:30 - 22:00", "ST 9:00 - 11:00", "ST 11:00 - 13:00", "ST 14:00 - 16:00"];
-                    var alt_times = ["15:30", "16:00",  "18:00", "19:30", "09:00", "11:00", "14:00", "16:00", "18:00", "20:30", "9:00", "11:00", "14:00"];
+                    var times = ["PO 15:30 - 16:00", "PO 16:00 - 18:00",  "PO 18:00 - 18:45", "PO 18:45 - 19:30", "PO 19:30 - 21:00", "ÚT 09:00 - 11:00", "ÚT 11:00 - 13:00", "ÚT 13:00 - 14:00", "ÚT 14:00 - 16:00", "ÚT 16:00 - 18:00", "ÚT 18:00 - 20:00", "ÚT 19:30 - 20:30", "ÚT 20:30 - 22:00", "ST 9:00 - 11:00", "ST 11:00 - 13:00", "ST 13:00 - 14:00", "ST 14:00 - 16:00"];
+                    var alt_times = ["15:30", "16:00",  "18:00", "18:45 - 19:30", "19:30", "09:00", "11:00", "14:00", "16:00", "18:00", "19:30 - 20:30", "20:30", "9:00", "11:00", "13:00 - 14:00", "14:00"];
 
                     fetch("https://docs.google.com/spreadsheets/u/1/d/1JUHpxEMKoJotb-z4X3H2PDgBUywQKet2KE4cTIuGDqI/gviz/tq?tqx=out:csv&tq&gid=0",
                         {'method': 'GET',  'headers': {'Content-Type': 'text/csv'}, 'mode': 'cors'})
@@ -150,6 +149,7 @@
                             times.forEach((time, time_index) => {
                                 var row = document.createElement("tr");
                                 var header = document.createElement("th");
+                                header.style.width = "80px";
                                 header.innerText = alt_times[time_index];
                                 row.appendChild(header);
                                 table.appendChild(row);

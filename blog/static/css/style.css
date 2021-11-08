@@ -72,10 +72,11 @@ body {
 }
 .overlay-author {
   padding-top: 2.5vh;
+  padding-left: 1vw;
   font-size: 2.2rem;
   color: #00a6fc;
   text-align: center;
-  width: 85%;
+  width: 83%;
 }
 .overlay-prednaska {
   padding-top: 3vh;
@@ -83,7 +84,7 @@ body {
   font-size: 1.5rem;
   color: #00a6fc;
   text-align: left;
-  width: 85%;
+  width: 80%;
 }
 .overlay-anotace, .overlay-medailonek {
   padding-top: 3vh;
@@ -94,10 +95,10 @@ body {
   width: 94%;
 }
 .overlay-exit {
-  width: 15vw;
+  width: 15%;
   position: absolute;
-  left: 73vw;
-  top: -3vh;
+  left: 85%;
+  top: 0;
 }
 
 .background, canvas {
