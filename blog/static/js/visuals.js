@@ -1,7 +1,7 @@
 "use strict";
 
 var config = {
-	num: 100,
+	num: 150,
 	speed: 0.1,
 	scale: 0.8,
 	anim_period: 500,
