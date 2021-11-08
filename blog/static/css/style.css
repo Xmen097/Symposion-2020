@@ -521,6 +521,22 @@ h1 a, h2 a, h3 a {
   }
 }
 
+@media screen and (max-width: 900px) {
+  #harmonogram {
+    display: block;
+    width: 100%;
+  }
+
+  tr {
+    width: 100%;
+  }
+
+  tr td, tr th {
+    display: block;
+    width: 100% !important;
+  }
+}
+
 
 .btn {
   animation-name: orangebtn;
