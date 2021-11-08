@@ -91,8 +91,12 @@ function load_textures() {
 }
 
 window.addEventListener('mousemove', function(evt) {
-    let rect = canvas.getBoundingClientRect();
-    mouse = {"x": evt.clientX - rect.left, "y": evt.clientY - rect.top};
+    try {
+        let rect = canvas.getBoundingClientRect();
+        mouse = {"x": evt.clientX - rect.left, "y": evt.clientY - rect.top};
+    } catch {
+        
+    }
 });
 
 window.addEventListener("load", function() {
