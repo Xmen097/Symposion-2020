@@ -43,7 +43,61 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 420vh;
+  height: calc(331vh + 130rem);
+}
+
+#overlay {
+  z-index: 5000;
+  height: 100vh;
+  position: fixed;
+  width: 100vw;
+  display: none;
+}
+.overlay-shadow {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+.overlay-body {
+  width: 90vw;
+  height: 90vh;
+  z-index: 1000;
+  position: relative;
+  overflow-y: scroll;
+  margin-top: 5vh;
+  margin-left: 5vw;
+  background: rgb(17, 50, 73);
+}
+.overlay-author {
+  padding-top: 2.5vh;
+  font-size: 2.2rem;
+  color: #00a6fc;
+  text-align: center;
+  width: 85%;
+}
+.overlay-prednaska {
+  padding-top: 3vh;
+  padding-left: 3vw;
+  font-size: 1.5rem;
+  color: #00a6fc;
+  text-align: left;
+  width: 85%;
+}
+.overlay-anotace, .overlay-medailonek {
+  padding-top: 3vh;
+  padding-left: 3vw;
+  font-size: 1rem;
+  color: #fe8627;
+  text-align: left;
+  width: 94%;
+}
+.overlay-exit {
+  width: 15vw;
+  position: absolute;
+  left: 73vw;
+  top: -3vh;
 }
 
 .background, canvas {
@@ -124,7 +178,7 @@ h1 {
   text-decoration: none;
 }
 h1.section {
-  font-size:8vw;
+  font-size:16rem;
 }
 
 .page {
@@ -141,7 +195,7 @@ h1.section {
 
 nav {
   width: 75%;
-  font-size: 1.4vw;
+  font-size: 4rem;
   text-align: center;
   margin-left: 1.25%;
 }
@@ -174,7 +228,7 @@ a#zpet-btn {
   }
   #intro .text-container {
     width: 50%;
-    font-size: 1.4vw;
+    font-size: 1rem;
     text-align: left;
   }
   a#harmonogram-btn {
@@ -263,7 +317,7 @@ a#zpet-btn {
 }
 #harmonogram .text-container {
   width: 75%;
-  font-size: 1.4vw;
+  font-size: 0.9rem;
   text-align: center;
   margin-left: 1.25%;
   height: 75%;
