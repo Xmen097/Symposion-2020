@@ -445,9 +445,14 @@ h1 a, h2 a, h3 a {
 }
 
 @media screen and (max-aspect-ratio: 5/4) {
+  #stream {
+    display: none;
+  }  
+
   /*portrait device */
   div#info-text {
     width: 85%;
+    font-size: 2.2vh;
   }
   div#kontakt-text {
     width: 60%;
@@ -532,5 +537,5 @@ h1 a, h2 a, h3 a {
 .sidebug {
   position: absolute;
   right: 0;
-  max-width: 100%;
+  max-width: 80%;
 }
