@@ -6,6 +6,7 @@
     <!--<script type="text/javascript" src="https://unpkg.com/glsl-canvas-js/dist/umd/glsl-canvas.min.js"></script>
     <script src="{% static 'js/glbeetle.js' %}"></script>-->
     <script src="{% static 'js/visuals.js' %}"></script>
+    <script src="{% static 'js/csv_parser.js' %}"></script>
     {% config 'extrahead' %}
 {% endblock %}
 
@@ -49,7 +50,93 @@
         </div>
         <div class="page" id="harmonogram">
             <h2> {% config 'harmonogramheading' %}{% comment %}ne//řád harmonogram{% endcomment %} </h2>
-            <div class="text-container"> {% config 'harmonogramtext' %}{% comment %}Harmonogram se připravuje{% endcomment %}</div>
+            <div class="text-container"> {% config 'harmonogramtext' %}
+                <table id="harmonogram_table">
+                    <tbody id="harmonogram_table_body">
+                    <tr>
+                        <th></th>
+                        <th>Aula</th>
+                        <th>USV</th>
+                        <th>Sborovna</th>
+                        <th>P2.3</th>
+                        <th>P2.2</th>
+                        <th>Tělocvična</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <style>
+                    #harmonogram_table_body {
+                        display: block;
+                    }
+                    table#harmonogram_table td {
+                        height: 10rem;
+                        max-height: 10rem;
+                        border: 4px solid #00a6fc;
+                        overflow: hidden;
+                        hyphens: auto;
+                    }
+                    table#harmonogram_table {
+                        height: 100vh;
+                        table-layout: fixed;
+                    }
+                    table#harmonogram_table tr {
+                        height: 10rem;
+                        max-height: 10rem;
+                    }
+                    .text-container {
+                        height: initial !important;
+                    }
+                </style>
+                <script>
+
+                    function find(data_arr, room, time) {
+                        var found = -1;
+                        data_arr.forEach((item) => {
+                            if (item[1] === time && item[2] === room) {
+                                found = item;
+                            }
+                        });
+                        return found;
+                    }
+
+                    var data_arr;
+
+                    var rooms = ["Aula", "USV", "Sborovna", "P2.3", "P2.2", "Tělocvična"];
+                    var times = ["PO 15:30 - 16:00", "PO 16:00 - 18:00",  "PO 18:00 - 18:45", "PO 19:30 - 21:00", "ÚT 09:00 - 11:00", "ÚT 11:00 - 13:00", "ÚT 14:00 - 16:00", "ÚT 16:00 - 18:00", "ÚT 18:00 - 20:00", "ÚT 20:30 - 22:00", "ST 9:00 - 11:00", "ST 11:00 - 13:00", "ST 14:00 - 16:00"];
+                    var alt_times = ["15:30", "16:00",  "18:00", "19:30", "09:00", "11:00", "14:00", "16:00", "18:00", "20:30", "9:00", "11:00", "14:00"];
+
+                    fetch("https://docs.google.com/spreadsheets/u/1/d/1JUHpxEMKoJotb-z4X3H2PDgBUywQKet2KE4cTIuGDqI/gviz/tq?tqx=out:csv&tq&gid=0",
+                        {'method': 'GET',  'headers': {'Content-Type': 'text/csv'}, 'mode': 'cors'})
+                        .then(response => response.text())
+                        .then(data => {
+                            data_arr = CSVToArray(data);
+                            var table = document.getElementById("harmonogram_table_body");
+                            times.forEach((time, time_index) => {
+                                var row = document.createElement("tr");
+                                var header = document.createElement("th");
+                                header.innerText = alt_times[time_index];
+                                row.appendChild(header);
+                                table.appendChild(row);
+                                rooms.forEach((room) => {
+                                    var cell = document.createElement("td");
+                                    var res = find(data_arr, room, time);
+                                    if (res !== -1) {
+                                        cell.innerHTML = "<b>"+res[0]+"</b>";
+                                        if (typeof res[3] != "undefined") {
+                                            cell.innerHTML += ": "+res[3]
+                                        }
+                                    } else {
+                                        cell.innerText = "-"
+                                    }
+                                    row.appendChild(cell);
+                                })
+                            })
+                        });
+
+                </script>
+                {% comment %}Harmonogram se připravuje{% endcomment %}
+
+            </div>
         </div>
         <div class="page" id="kontakt">
             <h2> {% config 'contactheading' %}{% comment %}ne//řád kontakt {% endcomment %}</h2>
