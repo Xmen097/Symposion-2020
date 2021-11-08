@@ -535,8 +535,13 @@ h1 a, h2 a, h3 a {
     display: none;
   }
 
+  .harmonogram_day {
+    margin: 1.5rem auto;
+  }
+
   #harmonogram_table {
     margin: 0 auto;
+    width: 100%;
   }
 
   tr {
