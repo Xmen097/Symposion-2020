@@ -68,7 +68,7 @@
                 <div class="harmonogram_day">Úterý</div>
                 <table id="harmonogram_table">
                     <tbody class="harmonogram_table_body">
-                    <tr>
+                    <tr class="harmonogram_rooms">
                         <th></th>
                         <th>Aula</th>
                         <th>USV</th>
@@ -82,7 +82,7 @@
                 <div class="harmonogram_day">Středa</div>
                 <table id="harmonogram_table">
                     <tbody class="harmonogram_table_body">
-                    <tr>
+                    <tr class="harmonogram_rooms">
                         <th></th>
                         <th>Aula</th>
                         <th>USV</th>
@@ -178,6 +178,7 @@
                         .then(data => {
                             data_arr = CSVToArray(data);
                             var tables = document.getElementsByClassName("harmonogram_table_body");
+                            var mobile = window.matchMedia("screen and (max-aspect-ratio: 5/4)").matches;
                             times.forEach((time, time_index) => {
                                 var row = document.createElement("tr");
                                 var header = document.createElement("th");
@@ -197,11 +198,11 @@
                                         cell.style = "cursor: pointer";
                                         if (res[0] === "VEČEŘE" || res[0] === "OBĚD") {
                                             if (food_set) return;
-                                            cell.style.height = "1.2rem";
-                                            cell.colSpan = rooms.length;
+                                            //cell.style.height = "1.2rem";
+                                            if (!mobile) cell.colSpan = rooms.length;
                                             food_set = true;
-                                        }
-                                        cell.innerHTML = "<b>"+res[0]+"</b>";
+                                        } else if (mobile) cell.innerHTML = '<i style="color: #00a6fc">'+room+"</i>" + "<br>"
+                                        cell.innerHTML += "<b>"+res[0]+"</b>";
                                         if (typeof res[3] != "undefined") {
                                             cell.innerHTML += ": "+res[3]+""
                                         }

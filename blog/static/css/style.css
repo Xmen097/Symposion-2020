@@ -521,10 +521,22 @@ h1 a, h2 a, h3 a {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-aspect-ratio: 5/4) {
   #harmonogram {
     display: block;
     width: 100%;
+  }
+
+  #harmonogram .text-container {
+    width: 100%;
+  }
+
+  .harmonogram_rooms {
+    display: none;
+  }
+
+  #harmonogram_table {
+    margin: 0 auto;
   }
 
   tr {
@@ -533,7 +545,7 @@ h1 a, h2 a, h3 a {
 
   tr td, tr th {
     display: block;
-    width: 100% !important;
+    width: 94% !important;
   }
 }
 
