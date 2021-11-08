@@ -505,6 +505,7 @@ h1 a, h2 a, h3 a {
   translate: rotateZ(360deg);
   backface-visibility: hidden;
   perspective: 1000;
+  z-index: 100;
 }
 
 
@@ -524,4 +525,11 @@ h1 a, h2 a, h3 a {
   50% {transform: rotate(-6deg);}
   75% {transform: rotate(3deg);}
   100% {transform: rotate(0deg);}
+}
+
+
+.sidebug {
+  position: absolute;
+  right: 0;
+  max-width: 100%;
 }

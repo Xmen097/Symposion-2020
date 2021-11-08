@@ -3,7 +3,7 @@
 var config = {
 	num: 100,
 	speed: 0.1,
-	scale: 1,
+	scale: 0.8,
 	anim_period: 500,
 
 	vision: 200,
@@ -124,6 +124,16 @@ window.addEventListener("load", function() {
     	};
     }
 
+    var stream = document.getElementById("stream");
+
+    for (var i = 0; i<21; i++) {
+        var bug = document.createElement("img");
+        bug.classList.add("sidebug");
+        bug.src = [static_url + 'img/bg/modrmura2.png', static_url + 'img/bg/hnusak1.png', static_url + 'img/bg/chroust1.png', static_url + 'img/bg/mura1.png'][Math.floor(Math.random()*4)]
+        bug.style = "max-width: 90%; top: " + i + Math.random()*5 + "rem; left: 20%; transform: rotate(" + (-90 + [-10, 12, -11, 22, 5, 0, -4][i%7]) + "deg);";
+        stream.appendChild(bug);
+    }
+
     window.requestAnimationFrame(loop);
 });
 
@@ -136,7 +146,5 @@ window.onresize = function() {
     config.width = width;
     config.height = chaos_height;
     config.border_repulsion_margin = Math.min(width/10.0, chaos_height/5.0)/2;
-
-    max_bug_count = (width*chaos_height / (200*scale)**2) * bug_density;
 };
 
