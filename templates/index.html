@@ -51,6 +51,7 @@
         <div class="page" id="harmonogram">
             <h2> {% config 'harmonogramheading' %}{% comment %}ne//řád harmonogram{% endcomment %} </h2>
             <div class="text-container" style="padding-left: 0"> {% config 'harmonogramtext' %}
+                {% comment %}
                 <div class="harmonogram_day">Pondělí</div>
                 <table id="harmonogram_table">
                     <tbody class="harmonogram_table_body">
@@ -220,8 +221,8 @@
                         });
 
                 </script>
+                {% endcomment %}
                 {% comment %}Harmonogram se připravuje{% endcomment %}
-
             </div>
         </div>
         <div class="page" id="kontakt">
